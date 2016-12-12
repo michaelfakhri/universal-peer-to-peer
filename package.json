@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/michaelfakhri/universal-peer-to-peer#readme",
   "devDependencies": {
-    "aegir": "^9.2.1",
+    "aegir": "^9.2.2",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
