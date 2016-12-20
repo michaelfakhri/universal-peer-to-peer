@@ -46,7 +46,7 @@
   },
   "homepage": "https://github.com/michaelfakhri/universal-peer-to-peer#readme",
   "devDependencies": {
-    "aegir": "git://github.com/michaelfakhri/aegir.git#feat/StopVerboseAlsa",
+    "aegir": "^9.3.0",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "libp2p-webrtc-star": "^0.7.0",
