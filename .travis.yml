@@ -5,22 +5,20 @@ matrix:
   - node_js: 4
     env: 
       - CXX=g++-4.8
-      - AUDIODEV=null
   - node_js: 6
     env:
       - SAUCE=true
       - CXX=g++-4.8
-      - AUDIODEV=null
   - node_js: stable
     env: 
       - CXX=g++-4.8
-      - AUDIODEV=null
-
+      
 # Make sure we have new NPM.
 before_install:
   - npm install -g npm
 
 script:
+  - 2>/dev/null
   - npm run lint
   - npm test
   - npm run coverage
