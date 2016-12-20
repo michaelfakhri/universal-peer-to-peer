@@ -21,7 +21,7 @@ script:
   - npm run coverage
 
 before_script:
-  - /etc/init.d/alsasound stop
+  - ls /etc/init.d
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
