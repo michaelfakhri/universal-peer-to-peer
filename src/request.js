@@ -38,6 +38,9 @@ class Request {
   getFile () {
     return this._request.request.file
   }
+  getQuery () {
+    return this._request.request
+  }
   isAccepted () {
     return this._request.result.accepted
   }

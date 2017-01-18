@@ -49,9 +49,6 @@ module.exports = class DatabaseManager {
   fileExists (fileHash) {
     return deferred.promisify(this.files.exists.bind(this.files))(fileHash)
   }
-  storeFile () {
-
-  }
   getFile (fileHash) {
     var def = deferred()
     stream(
@@ -75,5 +72,14 @@ module.exports = class DatabaseManager {
   }
   deleteFile (fileHash) {
     return deferred.promisify(this.files.remove)(fileHash)
+  }
+  storeMetadata (fileHash, metadata) {
+    return this.metadata.store(fileHash, metadata)
+  }
+  getMetadata (fileHash) {
+    return this.metadata.get(fileHash)
+  }
+  queryMetadata (aQueryStr) {
+    return this.metadata.query(aQueryStr)
   }
 }

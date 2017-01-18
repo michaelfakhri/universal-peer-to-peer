@@ -51,7 +51,7 @@ module.exports = class UniversalPeerToPeer {
             def.resolve(hash)
           })
         )
-        return def.promise
+        return def.promise.then(() => self._connectionHandler._db.storeMetadata(hash, aMetadata)).then(() => hash)
       })
   }
 
@@ -67,8 +67,12 @@ module.exports = class UniversalPeerToPeer {
     return this._connectionHandler._requestHandler.buildAndSendFileRequest(aDataHashStr, aUserHashStr)
   }
 
-  query (aQuery) {
-    return this._connectionHandler._requestHandler.buildAndSendQuery(aQuery)
+  query (aQueryStr) {
+    return this._connectionHandler._requestHandler.buildAndSendQuery(aQueryStr)
+  }
+
+  queryLocal (aQueryStr) {
+    return this._connectionHandler._db.queryMetadata(aQueryStr)
   }
 }
 module.exports.Buffer = Buffer

@@ -4,6 +4,8 @@ const Logger = require('logplease')
 const assert = require('chai').assert
 const PeerId = require('peer-id')
 const UP2P = require('../src/index')
+const MockMetadataHandler = require('./mockMetadataHandler')
+
 Logger.setLogLevel(Logger.LogLevels.ERROR)
 
 let peers = []
@@ -16,12 +18,12 @@ describe('Query propagation across nodes', () => {
     for (var i = 0; i < nrOfNodes; i++) {
       PeerId.create((err, id) => { // eslint-disable-line no-loop-func
         if (err) throw err
-        new UP2P(id)
-        .then((peer) => {
-          peers.push({id: id.toB58String(), peer: peer})
-          return peer.start()
-        })
-        .then(incrementDoneCount)
+        new UP2P(new MockMetadataHandler(), id)
+          .then((peer) => {
+            peers.push({id: id.toB58String(), peer: peer})
+            return peer.start()
+          })
+          .then(incrementDoneCount)
       })
     }
   })
@@ -38,7 +40,7 @@ describe('Query propagation across nodes', () => {
 
   it('query between two nodes ', (done) => {
     peers[0].peer.connect(peers[1].id)
-      .then(() => peers[0].peer.query({}))
+      .then(() => peers[0].peer.query('{}'))
       .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[1].id]))
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(done)
@@ -46,7 +48,7 @@ describe('Query propagation across nodes', () => {
   it('query between three nodes', (done) => {
     peers[0].peer.connect(peers[1].id)
       .then(() => peers[1].peer.connect(peers[2].id))
-      .then(() => peers[0].peer.query({}))
+      .then(() => peers[0].peer.query('{}'))
       .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[1].id, peers[2].id]))
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(() => peers[2].peer.disconnect(peers[1].id))
@@ -56,7 +58,7 @@ describe('Query propagation across nodes', () => {
     peers[0].peer.connect(peers[1].id)
       .then(() => peers[0].peer.connect(peers[2].id))
       .then(() => peers[1].peer.connect(peers[2].id))
-      .then(() => peers[0].peer.query({}))
+      .then(() => peers[0].peer.query('{}'))
       .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[1].id, peers[2].id]))
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(() => peers[0].peer.disconnect(peers[2].id))

@@ -15,7 +15,7 @@ module.exports = class ConnectionHandler {
   constructor (aFileMetadataHandler, aPeerId) {
     this._db = new DatabaseManager(aFileMetadataHandler)
 
-    if (!aFileMetadataHandler && !aPeerId) {
+    if (!aFileMetadataHandler) {
       throw new Error('Must specify at least the file metadataHandler')
     }
 

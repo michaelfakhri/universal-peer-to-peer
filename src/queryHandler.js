@@ -45,7 +45,6 @@ module.exports = class RequestHandler {
     let self = this
     var requestId = request.getId()
     if (request.getType() === 'query') {
-      var response = { id: self.myId }// TODO: ADD real response
       var def = deferred()
       def.promise.then(function (processedRequest) {
         var myIndex = processedRequest.getRoute().indexOf(self.myId)
@@ -63,33 +62,37 @@ module.exports = class RequestHandler {
       }
       self.recentRequestIds.push(requestId)
       setTimeout(() => self.recentRequestIds.shift(), self.MAXIMUM_QUERY_TIME_RECENT * 1000)
-      activeQuery.responses.push(response)
-      activeQuery.incrementReceivedResponses()
-      if (activeQuery.isDone()) {
-        let result = activeQuery.originalRequest
-        result.setResult(activeQuery.responses)
-        def.resolve(result)
-      } else {
-        setTimeout(function () {
-          var timedOutQuery = self.activeRequests[requestId]
-          // could have been resolved by the transfer protocol
-          if (timedOutQuery) {
-            var result = timedOutQuery.originalRequest
-            result.setResult(timedOutQuery.responses)
-            def.resolve(result)
-            delete self.activeRequests[requestId]
-          }
-        }, self.MAXIMUM_QUERY_TIME_SECONDARY * 1000)
-      }
+      self.dbManager.queryMetadata(request.getQuery()).then((queryResult) => {
+        var response = {id: self.myId, result: queryResult}
+        activeQuery.responses.push(response)
+        activeQuery.incrementReceivedResponses()
+        if (activeQuery.isDone()) {
+          let result = activeQuery.originalRequest
+          result.setResult(activeQuery.responses)
+          def.resolve(result)
+        } else {
+          setTimeout(function () {
+            var timedOutQuery = self.activeRequests[requestId]
+            // could have been resolved by the transfer protocol
+            if (timedOutQuery) {
+              var result = timedOutQuery.originalRequest
+              result.setResult(timedOutQuery.responses)
+              def.resolve(result)
+              delete self.activeRequests[requestId]
+            }
+          }, self.MAXIMUM_QUERY_TIME_SECONDARY * 1000)
+        }
+      })
     } else {
       self.dbManager.fileExists(request.getFile()).then(function (exists) {
         if (exists) {
-          request.setResult([{ accepted: true }])
-          // add fileInfo
-          stream(
-            self.dbManager.getFileReader(request.getFile()),
-            self.activeFtpConnections[request.getRoute()[0]].connection
-          )
+          self.dbManager.getMetadata(request.getFile()).then((metadata) => {
+            request.setResult([{ accepted: true, metadata: metadata }])
+            stream(
+              self.dbManager.getFileReader(request.getFile()),
+              self.activeFtpConnections[request.getRoute()[0]].connection
+            )
+          })
         } else {
           request.setResult([{ accepted: false, error: 'file NOT found' }])
         }
@@ -193,6 +196,8 @@ module.exports = class RequestHandler {
     def.promise.then((request) => {
       if (!request.getResult()[0].accepted) {
         deferredFile.reject(request.getResult()[0].error)
+      } else {
+        self.dbManager.storeMetadata(fileHash, request.getResult()[0].metadata)
       }
     },
       deferredFile.reject
