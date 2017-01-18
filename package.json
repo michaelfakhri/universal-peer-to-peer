@@ -61,7 +61,7 @@
     "detect-node": "^2.0.3",
     "fs-pull-blob-store": "^0.4.1",
     "idb-pull-blob-store": "^0.5.1",
-    "libp2p-ipfs-browser": "^0.17.3",
+    "libp2p-ipfs-browser": "^0.17.5",
     "lodash": "^4.17.3",
     "logplease": "^1.2.12",
     "multihashing-async": "^0.3.0",
