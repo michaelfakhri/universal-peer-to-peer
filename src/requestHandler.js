@@ -8,19 +8,23 @@ const RequestTracker = require('./requestTracker')
 
 const deferred = require('deferred')
 module.exports = class RequestHandler {
-  constructor (aDbManager, aNode) {
+  constructor (aDbManager) {
     this.MAXIMUM_QUERY_TIME_PRIMARY = 15
     this.MAXIMUM_QUERY_TIME_SECONDARY = 5
     this.MAXIMUM_FILE_REQUEST_TIME = 20
     this.MAXIMUM_QUERY_TIME_RECENT = 5
 
     this.dbManager = aDbManager
-    this.myId = aNode.peerInfo.id.toB58String()
     this.activeQueryConnections = {}
     this.activeFtpConnections = {}
     this.activeRequests = []
     this.recentRequestIds = []
+    this.myId
+    this.node
+  }
+  start (aNode) {
     this.node = aNode
+    this.myId = aNode.peerInfo.id.toB58String()
   }
 
   buildAndSendQuery (query) {

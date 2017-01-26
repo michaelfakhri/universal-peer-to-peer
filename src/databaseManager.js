@@ -3,6 +3,7 @@
 const stream = require('pull-stream')
 const pullDecode = require('pull-utf8-decoder')
 const PullBlobStore = require('idb-pull-blob-store')
+const PeerId = require('peer-id')
 
 const deferred = require('deferred')
 
@@ -14,12 +15,36 @@ module.exports = class DatabaseManager {
   setupFileStorage (aUserHash) {
     this.files = new PullBlobStore('files-' + aUserHash)
   }
+  getConfig (aPeerId) {
+    let self = this
+    let def = deferred()
+
+    if (aPeerId) {
+      def.resolve(aPeerId)
+    } else {
+      self.configExists()
+      .then((exists) => {
+        if (exists) {
+          self.getConfigFromStorage()
+            .then((peerIdJSON) => deferred.promisify(PeerId.createFromJSON)(peerIdJSON))
+            .then((peerId) => def.resolve(peerId))
+        } else {
+          deferred.promisify(PeerId.create)()
+          .then((peerId) => {
+            self.storeConfig(peerId.toJSON())
+              .then(() => def.resolve(peerId))
+          })
+        }
+      })
+    }
+    return def.promise
+  }
 
   configExists () {
     return deferred.promisify(this.config.exists.bind(this.config))('config')
   }
 
-  getConfig () {
+  getConfigFromStorage () {
     let config = this.config
     return new Promise(function (resolve, reject) {
       stream(
