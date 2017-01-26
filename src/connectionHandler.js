@@ -12,13 +12,16 @@ Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR
 const logger = Logger.create('ConnectionHandler', { color: Logger.Colors.Blue })
 
 module.exports = class ConnectionHandler {
-  constructor (aFileMetadataHandler, aPeerId) {
-    this._db = new DatabaseManager(aFileMetadataHandler)
-
+  constructor (aFileMetadataHandler) {
     if (!aFileMetadataHandler) {
       throw new Error('Must specify at least the file metadataHandler')
     }
 
+    this._db = new DatabaseManager(aFileMetadataHandler)
+    this._node
+    this._requestHandler
+  }
+  start (aPeerId) {
     let self = this
     let def = deferred()
 
@@ -50,8 +53,9 @@ module.exports = class ConnectionHandler {
       var ma = '/libp2p-webrtc-star/ip4/127.0.0.1/tcp/15555/ws/ipfs/' + peerId.toB58String()
       peerInfo.multiaddr.add(ma)
       logger.debug('YOU CAN REACH ME AT ID = ' + peerId.toB58String())
-      return deferred(self)
     })
+      .then(() => deferred.promisify(self._node.start.bind(self._node))()
+  )
   }
   connect (ma) {
     let self = this

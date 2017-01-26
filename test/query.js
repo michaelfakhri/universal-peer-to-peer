@@ -18,11 +18,9 @@ describe('Query propagation across nodes', () => {
     for (var i = 0; i < nrOfNodes; i++) {
       PeerId.create((err, id) => { // eslint-disable-line no-loop-func
         if (err) throw err
-        new UP2P(new MockMetadataHandler(), id)
-          .then((peer) => {
-            peers.push({id: id.toB58String(), peer: peer})
-            return peer.start()
-          })
+        let peer = new UP2P(new MockMetadataHandler())
+        peers.push({id: id.toB58String(), peer: peer})
+        peer.start(id)
           .then(incrementDoneCount)
       })
     }
