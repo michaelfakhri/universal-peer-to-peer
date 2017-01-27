@@ -24,59 +24,62 @@ module.exports = class RequestHandler {
     this.myId = aNode.peerInfo.id.toB58String()
   }
 
-  onIncominRequest (queryToSend) {
-    var requestId = queryToSend.getId()
-    var def = deferred()
-    var nrOfExpectedResponses = this.sendRequestToAll(queryToSend)
-    this.activeRequests[requestId] = new RequestTracker(queryToSend, nrOfExpectedResponses, def)
-    def.promise.then((request) => queryToSend.getDeferred().resolve(request.getResult()))
-  }
-  requestProcessor (nrOfExpectedResponses, request) {
+  onIncominRequest (request) {
     let self = this
     var requestId = request.getId()
-    if (request.getType() === 'query') {
-      var def = deferred()
-      def.promise.then(function (processedRequest) {
-        var myIndex = processedRequest.getRoute().indexOf(self.myId)
-        if (self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]]) {
-          self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]].push(processedRequest.serialize())
-        }
-      })
-      var activeQuery = new RequestTracker(request, (nrOfExpectedResponses + 1), def)
-      if (self.recentRequestIds.indexOf(request.getId()) > -1) {
-        let result = activeQuery.originalRequest
-        result.setResult([])
-        return def.resolve(result)
-      } else {
-        self.activeRequests[requestId] = activeQuery
+    if (!request.isResponse()) {
+      let nrOfExpectedResponses = 0
+      request.addToRoute(this.myId)
+      if (this.recentRequestIds.indexOf(request.getId()) > -1) {
+        request.setResult([])
+        return request.getDeferred().resolve(request)
+      } else if (request.decrementTimeToLive() > 0) {
+        nrOfExpectedResponses = this.sendRequestToAll(request)
+        if (request.getRoute()[0] !== self.myId) nrOfExpectedResponses++
       }
-      self.recentRequestIds.push(requestId)
+      this.activeRequests[requestId] = new RequestTracker(request, nrOfExpectedResponses, request.getDeferred())
+      var activeRequest = this.activeRequests[requestId]
+      this.recentRequestIds.push(requestId)
       setTimeout(() => self.recentRequestIds.shift(), 5 * 1000)
-      self.dbManager.queryMetadata(request.getQuery()).then((queryResult) => {
-        var response = {id: self.myId, result: queryResult}
-        activeQuery.responses.push(response)
-        activeQuery.incrementReceivedResponses()
-        if (activeQuery.isDone()) {
-          let result = activeQuery.originalRequest
-          result.setResult(activeQuery.responses)
-          def.resolve(result)
-        }
-      })
+      if (request.getRoute()[0] !== self.myId && request.getType() === 'query') {
+        self.dbManager.queryMetadata(request.getQuery()).then((queryResult) => {
+          var response = {id: self.myId, result: queryResult}
+          activeRequest.responses.push(response)
+          activeRequest.incrementReceivedResponses()
+          if (activeRequest.isDone()) {
+            request.setResult(activeRequest.responses)
+            request.getDeferred().resolve(request)
+            delete self.activeRequests[requestId]
+          }
+        })
+      } else if (request.getRoute()[0] !== self.myId && request.getType() === 'file') {
+        self.dbManager.fileExists(request.getFile()).then(function (exists) {
+          if (exists) {
+            self.dbManager.getMetadata(request.getFile()).then((metadata) => {
+              request.setResult([{accepted: true, metadata: metadata}])
+              stream(
+                self.dbManager.getFileReader(request.getFile()),
+                self.activeFtpConnections[request.getRoute()[0]].connection
+              )
+              request.getDeferred().resolve(request)
+              delete self.activeRequests[requestId]
+            })
+          } else {
+            request.setResult([{accepted: false, error: 'file NOT found'}])
+            request.getDeferred().resolve(request)
+            delete self.activeRequests[requestId]
+          }
+        })
+      }
     } else {
-      self.dbManager.fileExists(request.getFile()).then(function (exists) {
-        if (exists) {
-          self.dbManager.getMetadata(request.getFile()).then((metadata) => {
-            request.setResult([{ accepted: true, metadata: metadata }])
-            stream(
-              self.dbManager.getFileReader(request.getFile()),
-              self.activeFtpConnections[request.getRoute()[0]].connection
-            )
-          })
-        } else {
-          request.setResult([{ accepted: false, error: 'file NOT found' }])
-        }
-        self.activeQueryConnections[request.getRoute()[0]].push(request.serialize())
-      })
+      let activeRequest = this.activeRequests[requestId]
+      activeRequest.incrementReceivedResponses()
+      request.getResult().forEach((elementInArray) => activeRequest.addResponse(elementInArray))
+      if (activeRequest.isDone()) {
+        request.setResult(activeRequest.responses)
+        activeRequest.def.resolve(request)
+        delete self.activeRequests[requestId]
+      }
     }
   }
 
@@ -122,23 +125,14 @@ module.exports = class RequestHandler {
     var self = this
     var parsedRequest = Request.createFromString(request)
     if (!parsedRequest.isResponse()) {
-      // new query handling
-      var expectedNumberOfResponses = 0
-      parsedRequest.addToRoute(self.myId)
-      if (parsedRequest.decrementTimeToLive() > 0 && !self.recentRequestIds.indexOf(parsedRequest.getId()) > -1) {
-        expectedNumberOfResponses = this.sendRequestToAll(parsedRequest)
-      }
-      self.requestProcessor(expectedNumberOfResponses, parsedRequest)
-    } else {
-      var activeRequest = this.activeRequests[parsedRequest.getId()]
-      activeRequest.incrementReceivedResponses()
-      parsedRequest.getResult().forEach((elementInArray) => activeRequest.addResponse(elementInArray))
-      if (activeRequest.isDone()) {
-        activeRequest.originalRequest.setResult(activeRequest.responses)
-        activeRequest.def.resolve(activeRequest.originalRequest)
-        delete self.activeRequests[parsedRequest.getId()]
-      }
+      parsedRequest.getDeferred().promise.then(function (processedRequest) {
+        var myIndex = processedRequest.getRoute().indexOf(self.myId)
+        if (self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]]) {
+          self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]].push(processedRequest.serialize())
+        }
+      })
     }
+    this._EE.emit('IncomingRequest', parsedRequest)
   }
 
   disconnectConnection (userHash) {
@@ -159,7 +153,8 @@ module.exports = class RequestHandler {
     }
     self.activeFtpConnections[userHash].activeIncoming = true
 
-    var ftpRequestToSend = Request.create(self.myId, 'file', {file: fileHash})
+    var ftpRequestToSend = Request.create('file', {file: fileHash})
+    ftpRequestToSend.addToRoute(self.myId)
     var requestId = ftpRequestToSend.getId()
     stream(
       self.activeFtpConnections[userHash].connection,

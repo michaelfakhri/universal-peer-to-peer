@@ -58,7 +58,7 @@ class Request {
 
 module.exports = Request
 
-Request.create = function (myId, type, aRequest) {
+Request.create = function (type, aRequest) {
   let request = {}
   request.request = aRequest
   request.type = type
@@ -69,7 +69,7 @@ Request.create = function (myId, type, aRequest) {
   }
   request.id = window.crypto.getRandomValues(new Uint32Array(1))[0]
   request.response = false
-  request.route = [myId]
+  request.route = []
   request.isResponse = false
   request.result = undefined
 

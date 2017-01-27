@@ -66,9 +66,9 @@ module.exports = class UniversalPeerToPeer {
   }
 
   query (aQueryStr) {
-    let request = Request.create(this._connectionHandler._requestHandler.myId, 'query', aQueryStr)
+    let request = Request.create('query', aQueryStr)
     this._EE.emit('IncomingRequest', request)
-    return request.getDeferred().promise
+    return request.getDeferred().promise.then((req) => req.getResult())
   }
 
   queryLocal (aQueryStr) {
