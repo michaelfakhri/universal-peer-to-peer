@@ -4,6 +4,9 @@ const MultihashingAsync = require('multihashing-async')
 const stream = require('pull-stream')
 const Logger = require('logplease')
 const deferred = require('deferred')
+const EE = require('events').EventEmitter
+const Request = require('./request')
+
 Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR
 
 const logger = Logger.create('UP2P', { color: Logger.Colors.Blue })
@@ -12,8 +15,9 @@ const ConnectionHandler = require('./connectionHandler')
 
 module.exports = class UniversalPeerToPeer {
 
-  constructor (aFileMetadataHandler, aPeerId) {
-    this._connectionHandler = new ConnectionHandler(aFileMetadataHandler, aPeerId)
+  constructor (aFileMetadataHandler) {
+    this._EE = new EE()
+    this._connectionHandler = new ConnectionHandler(aFileMetadataHandler, this._EE)
     return this
   }
 
@@ -62,7 +66,9 @@ module.exports = class UniversalPeerToPeer {
   }
 
   query (aQueryStr) {
-    return this._connectionHandler._requestHandler.buildAndSendQuery(aQueryStr)
+    let request = Request.create(this._connectionHandler._requestHandler.myId, 'query', aQueryStr)
+    this._EE.emit('IncomingRequest', request)
+    return request.getDeferred().promise
   }
 
   queryLocal (aQueryStr) {

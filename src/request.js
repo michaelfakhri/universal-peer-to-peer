@@ -1,11 +1,18 @@
 'use strict'
 
+const defer = require('deferred')
+
 const MAXIMUM_TIME_TO_LIVE_QUERY = 5
 const MAXIMUM_TIME_TO_LIVE_FTP = 1
 
 class Request {
-  constructor (aRequest) {
+  constructor (aRequest, deferred) {
     this._request = aRequest
+    this._deferred = defer()
+  }
+
+  getDeferred () {
+    return this._deferred
   }
 
   setResult (aResult) {

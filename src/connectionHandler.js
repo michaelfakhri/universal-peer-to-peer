@@ -11,13 +11,13 @@ Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR
 const logger = Logger.create('ConnectionHandler', { color: Logger.Colors.Blue })
 
 module.exports = class ConnectionHandler {
-  constructor (aFileMetadataHandler) {
+  constructor (aFileMetadataHandler, EE) {
     if (!aFileMetadataHandler) {
       throw new Error('Must specify at least the file metadataHandler')
     }
 
     this._db = new DatabaseManager(aFileMetadataHandler)
-    this._requestHandler = new RequestHandler(this._db)
+    this._requestHandler = new RequestHandler(this._db, EE)
     this._node
   }
   start (aPeerId) {

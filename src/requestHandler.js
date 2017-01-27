@@ -8,42 +8,28 @@ const RequestTracker = require('./requestTracker')
 
 const deferred = require('deferred')
 module.exports = class RequestHandler {
-  constructor (aDbManager) {
-    this.MAXIMUM_QUERY_TIME_PRIMARY = 15
-    this.MAXIMUM_QUERY_TIME_SECONDARY = 5
-    this.MAXIMUM_FILE_REQUEST_TIME = 20
-    this.MAXIMUM_QUERY_TIME_RECENT = 5
-
+  constructor (aDbManager, EE) {
     this.dbManager = aDbManager
     this.activeQueryConnections = {}
     this.activeFtpConnections = {}
     this.activeRequests = []
     this.recentRequestIds = []
+    this._EE = EE
     this.myId
     this.node
+    this._EE.on('IncomingRequest', this.onIncominRequest.bind(this))
   }
   start (aNode) {
     this.node = aNode
     this.myId = aNode.peerInfo.id.toB58String()
   }
 
-  buildAndSendQuery (query) {
-    var self = this
-
-    var queryToSend = Request.create(self.myId, 'query', query)
+  onIncominRequest (queryToSend) {
     var requestId = queryToSend.getId()
     var def = deferred()
-    var nrOfExpectedResponses = self.sendRequestToAll(queryToSend)
-    self.activeRequests[requestId] = new RequestTracker(queryToSend, nrOfExpectedResponses, def)
-    setTimeout(function () {
-      var timedOutQuery = self.activeRequests[requestId]
-      // could have been resolved by the transfer protocol
-      if (timedOutQuery) {
-        def.resolve(timedOutQuery.originalRequest)
-        delete self.activeRequests[requestId]
-      }
-    }, self.MAXIMUM_QUERY_TIME_PRIMARY * 1000)
-    return def.promise.then((request) => request.getResult())
+    var nrOfExpectedResponses = this.sendRequestToAll(queryToSend)
+    this.activeRequests[requestId] = new RequestTracker(queryToSend, nrOfExpectedResponses, def)
+    def.promise.then((request) => queryToSend.getDeferred().resolve(request.getResult()))
   }
   requestProcessor (nrOfExpectedResponses, request) {
     let self = this
@@ -65,7 +51,7 @@ module.exports = class RequestHandler {
         self.activeRequests[requestId] = activeQuery
       }
       self.recentRequestIds.push(requestId)
-      setTimeout(() => self.recentRequestIds.shift(), self.MAXIMUM_QUERY_TIME_RECENT * 1000)
+      setTimeout(() => self.recentRequestIds.shift(), 5 * 1000)
       self.dbManager.queryMetadata(request.getQuery()).then((queryResult) => {
         var response = {id: self.myId, result: queryResult}
         activeQuery.responses.push(response)
@@ -74,17 +60,6 @@ module.exports = class RequestHandler {
           let result = activeQuery.originalRequest
           result.setResult(activeQuery.responses)
           def.resolve(result)
-        } else {
-          setTimeout(function () {
-            var timedOutQuery = self.activeRequests[requestId]
-            // could have been resolved by the transfer protocol
-            if (timedOutQuery) {
-              var result = timedOutQuery.originalRequest
-              result.setResult(timedOutQuery.responses)
-              def.resolve(result)
-              delete self.activeRequests[requestId]
-            }
-          }, self.MAXIMUM_QUERY_TIME_SECONDARY * 1000)
         }
       })
     } else {
@@ -207,10 +182,6 @@ module.exports = class RequestHandler {
       deferredFile.reject
     )
     self.sendRequestToUser(userHash, ftpRequestToSend)
-    setTimeout(function () {
-      def.reject('Request TIMED OUT')
-      delete self.activeRequests[requestId]
-    }, self.MAXIMUM_FILE_REQUEST_TIME * 1000)
     return deferredFile.promise
   }
 }
