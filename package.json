@@ -30,7 +30,7 @@
     "gulp": "3.9.1",
     "libp2p-webrtc-star": "0.8.1",
     "multiaddr": "2.2.0",
-    "aegir": "9.3.3"
+    "aegir": "9.4.0"
   },
   "dependencies": {
     "deferred": "0.7.5",
