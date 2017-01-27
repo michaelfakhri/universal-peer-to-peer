@@ -62,7 +62,9 @@ module.exports = class UniversalPeerToPeer {
   }
 
   copy (aDataHashStr, aUserHashStr) {
-    return this._connectionHandler._requestHandler.buildAndSendFileRequest(aDataHashStr, aUserHashStr)
+    let request = Request.create('file', {file: aDataHashStr}, aUserHashStr)
+    this._EE.emit('IncomingRequest', request)
+    return request.getDeferred().promise
   }
 
   query (aQueryStr) {

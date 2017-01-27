@@ -16,6 +16,7 @@ class RequestTracker {
   getResponses () {
     return this.responses
   }
+
   incrementReceivedResponses () {
     this.receivedResponses++
   }

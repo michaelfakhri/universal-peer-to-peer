@@ -28,20 +28,56 @@ module.exports = class RequestHandler {
     let self = this
     var requestId = request.getId()
     if (!request.isResponse()) {
-      let nrOfExpectedResponses = 0
       request.addToRoute(this.myId)
-      if (this.recentRequestIds.indexOf(request.getId()) > -1) {
-        request.setResult([])
-        return request.getDeferred().resolve(request)
-      } else if (request.decrementTimeToLive() > 0) {
-        nrOfExpectedResponses = this.sendRequestToAll(request)
-        if (request.getRoute()[0] !== self.myId) nrOfExpectedResponses++
+      if (request.getType() === 'file' && request.getRoute()[0] === self.myId) {
+        let fileHash = request.getFile()
+        let userHash = request.getTarget()
+        let self = this
+        if (!self.activeFtpConnections[userHash] || !self.activeQueryConnections[userHash]) {
+          throw new Error('user is not connected')
+        }
+        if (self.activeFtpConnections[userHash].activeIncoming) {
+          throw new Error('There is a file currently being transferred')
+        }
+        self.activeFtpConnections[userHash].activeIncoming = true
+
+        var deferredFile = request.getDeferred()
+        stream(
+          self.activeFtpConnections[userHash].connection,
+          self.dbManager.getFileWriter(fileHash, function (err) {
+            if (err) throw err
+            self.activeFtpConnections[userHash].activeIncoming = false
+            deferredFile.resolve()
+          })
+        )
+
+        var def = deferred()
+        self.activeRequests[requestId] = new RequestTracker(request, 1, def)
+        def.promise.then((request) => {
+          if (!request.getResult()[0].accepted) {
+            deferredFile.reject(request.getResult()[0].error)
+          } else {
+            self.dbManager.storeMetadata(fileHash, request.getResult()[0].metadata)
+          }
+        },
+          deferredFile.reject
+        )
+        self.sendRequestToUser(userHash, request)
+      } else {
+        let nrOfExpectedResponses = 0
+        if (this.recentRequestIds.indexOf(request.getId()) > -1) {
+          request.setResult([])
+          return request.getDeferred().resolve(request)
+        } else if (request.decrementTimeToLive() > 0) {
+          nrOfExpectedResponses = this.sendRequestToAll(request)
+          if (request.getRoute()[0] !== self.myId) nrOfExpectedResponses++
+        }
+        this.activeRequests[requestId] = new RequestTracker(request, nrOfExpectedResponses, request.getDeferred())
+        this.recentRequestIds.push(requestId)
+        setTimeout(() => self.recentRequestIds.shift(), 5 * 1000)
       }
-      this.activeRequests[requestId] = new RequestTracker(request, nrOfExpectedResponses, request.getDeferred())
-      var activeRequest = this.activeRequests[requestId]
-      this.recentRequestIds.push(requestId)
-      setTimeout(() => self.recentRequestIds.shift(), 5 * 1000)
       if (request.getRoute()[0] !== self.myId && request.getType() === 'query') {
+        let activeRequest = this.activeRequests[requestId]
         self.dbManager.queryMetadata(request.getQuery()).then((queryResult) => {
           var response = {id: self.myId, result: queryResult}
           activeRequest.responses.push(response)
@@ -141,40 +177,6 @@ module.exports = class RequestHandler {
   }
 
   buildAndSendFileRequest (fileHash, userHash) {
-    var deferredFile = deferred()
-    var self = this
-    if (!self.activeFtpConnections[userHash] || !self.activeQueryConnections[userHash]) {
-      throw new Error('user is not connected')
-    }
-    if (self.activeFtpConnections[userHash].activeIncoming) {
-      throw new Error('There is a file currently being transferred')
-    }
-    self.activeFtpConnections[userHash].activeIncoming = true
 
-    var ftpRequestToSend = Request.create('file', {file: fileHash})
-    ftpRequestToSend.addToRoute(self.myId)
-    var requestId = ftpRequestToSend.getId()
-    stream(
-      self.activeFtpConnections[userHash].connection,
-      self.dbManager.getFileWriter(fileHash, function (err) {
-        if (err) throw err
-        self.activeFtpConnections[userHash].activeIncoming = false
-        deferredFile.resolve()
-      })
-    )
-
-    var def = deferred()
-    self.activeRequests[requestId] = new RequestTracker(ftpRequestToSend, 1, def)
-    def.promise.then((request) => {
-      if (!request.getResult()[0].accepted) {
-        deferredFile.reject(request.getResult()[0].error)
-      } else {
-        self.dbManager.storeMetadata(fileHash, request.getResult()[0].metadata)
-      }
-    },
-      deferredFile.reject
-    )
-    self.sendRequestToUser(userHash, ftpRequestToSend)
-    return deferredFile.promise
   }
 }

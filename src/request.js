@@ -6,13 +6,18 @@ const MAXIMUM_TIME_TO_LIVE_QUERY = 5
 const MAXIMUM_TIME_TO_LIVE_FTP = 1
 
 class Request {
-  constructor (aRequest, deferred) {
+  constructor (aRequest, target) {
     this._request = aRequest
     this._deferred = defer()
+    this._target = target
   }
 
   getDeferred () {
     return this._deferred
+  }
+
+  getTarget () {
+    return this._target
   }
 
   setResult (aResult) {
@@ -58,7 +63,7 @@ class Request {
 
 module.exports = Request
 
-Request.create = function (type, aRequest) {
+Request.create = function (type, aRequest, target) {
   let request = {}
   request.request = aRequest
   request.type = type
@@ -73,7 +78,7 @@ Request.create = function (type, aRequest) {
   request.isResponse = false
   request.result = undefined
 
-  return new Request(request)
+  return new Request(request, target)
 }
 
 Request.createFromString = function (aReqStr) {
