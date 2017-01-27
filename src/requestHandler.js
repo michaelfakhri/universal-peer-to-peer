@@ -105,7 +105,7 @@ module.exports = class RequestHandler {
       connection, // p2p connection
       pullDecode(), // convert uint8 to utf8
       stream.drain(self.queryTransferProtocolHandler.bind(self), // function called when data arrives
-        function (err) {
+        (err) => {
           if (err) console.error(err)
           connection.getObservedAddrs(function (err, data) {
             if (err) console.error(err)
@@ -127,9 +127,7 @@ module.exports = class RequestHandler {
     if (!parsedRequest.isResponse()) {
       parsedRequest.getDeferred().promise.then(function (processedRequest) {
         var myIndex = processedRequest.getRoute().indexOf(self.myId)
-        if (self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]]) {
-          self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]].push(processedRequest.serialize())
-        }
+        self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]].push(processedRequest.serialize())
       })
     }
     this._EE.emit('IncomingRequest', parsedRequest)
