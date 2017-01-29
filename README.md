@@ -1,5 +1,7 @@
 <h1 align="center">UP2P in the browser</h1>
 ## API
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/michaelfakhri/universal-peer-to-peer.svg)](https://greenkeeper.io/)
 <h3>constructor(fileMetadataHandler, [PeerId])</h3>
 returns an instance of this module.
 <h3>start()</h3>
