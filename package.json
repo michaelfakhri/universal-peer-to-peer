@@ -35,7 +35,7 @@
   "dependencies": {
     "deferred": "0.7.5",
     "idb-pull-blob-store": "0.5.1",
-    "libp2p-ipfs-browser": "0.18.0",
+    "libp2p-ipfs-browser": "0.18.2",
     "logplease": "1.2.13",
     "multihashing-async": "0.4.1",
     "peer-id": "0.8.2",
