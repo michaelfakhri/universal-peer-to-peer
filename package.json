@@ -28,7 +28,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "gulp": "3.9.1",
-    "libp2p-webrtc-star": "0.8.6",
+    "libp2p-webrtc-star": "0.8.8",
     "multiaddr": "2.2.0",
     "aegir": "9.4.0"
   },
