@@ -17,8 +17,8 @@ module.exports = class DatabaseManager {
     this._EE.on('IncomingQueryRequest', this.onIncomingQueryRequest.bind(this))
     this._EE.on('IncomingFileRequest', this.onIncomingFileRequest.bind(this))
     this._EE.on('IncomingFileResponse', this.onIncomingFileResponse.bind(this))
-
   }
+
   onIncomingQueryRequest (request) {
     let self = this
     self.queryMetadata(request.getQuery())

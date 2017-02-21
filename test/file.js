@@ -48,6 +48,5 @@ describe('data propagation across nodes', () => {
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(done)
       .catch((err) => console.error(err.stack))
-
   })
 })

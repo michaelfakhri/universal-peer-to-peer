@@ -98,7 +98,8 @@ class Request {
     return this.expectedResponses === this.receivedResponses
   }
   setExpectedResponses (anExpectedNrOfResponses) {
-    this.expectedResponses = anExpectedNrOfResponses  }
+    this.expectedResponses = anExpectedNrOfResponses
+  }
 }
 
 module.exports = Request
