@@ -45,9 +45,9 @@ describe('data propagation across nodes', () => {
       .then(() => peers[1].peer.copy(hashOfFile, peers[0].id))
       .then(() => peers[1].peer.view(hashOfFile))
       .then((received) => assert.deepEqual(sent, Buffer(received)))
-      .then(() => peers[1].peer.queryLocal(hashOfFile))
-      .then((receivedMetadata) => assert.equal('{}', receivedMetadata))
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(done)
+      .catch((err) => console.error(err.stack))
+
   })
 })

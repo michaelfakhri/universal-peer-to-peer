@@ -22,6 +22,7 @@ describe('Query propagation across nodes', () => {
         peers.push({id: id.toB58String(), peer: peer})
         peer.start(id)
           .then(incrementDoneCount)
+          .catch((err) => console.error(err))
       })
     }
   })
@@ -32,6 +33,7 @@ describe('Query propagation across nodes', () => {
     peers.forEach((peer) => {
       peer.peer.stop()
       .then(incrementDoneCount)
+      .catch((err) => console.error(err.stack))
     })
     peers.splice(0, peers.length)
   })
@@ -39,29 +41,32 @@ describe('Query propagation across nodes', () => {
   it('query between two nodes ', (done) => {
     peers[0].peer.connect(peers[1].id)
       .then(() => peers[0].peer.query('{}'))
-      .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[1].id]))
+      .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[0].id, peers[1].id]))
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(done)
+      .catch((err) => console.error(err.stack))
   })
   it('query between three nodes', (done) => {
     peers[0].peer.connect(peers[1].id)
       .then(() => peers[1].peer.connect(peers[2].id))
       .then(() => peers[0].peer.query('{}'))
-      .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[1].id, peers[2].id]))
+      .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[0].id, peers[1].id, peers[2].id]))
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(() => peers[2].peer.disconnect(peers[1].id))
       .then(done)
+      .catch((err) => console.error(err.stack))
   })
   it('query between three nodes with overlap', (done) => {
     peers[0].peer.connect(peers[1].id)
       .then(() => peers[0].peer.connect(peers[2].id))
       .then(() => peers[1].peer.connect(peers[2].id))
       .then(() => peers[0].peer.query('{}'))
-      .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[1].id, peers[2].id]))
+      .then((result) => assert.sameDeepMembers(parseQueryResult(result), [peers[0].id, peers[1].id, peers[2].id]))
       .then(() => peers[0].peer.disconnect(peers[1].id))
       .then(() => peers[0].peer.disconnect(peers[2].id))
       .then(() => peers[1].peer.disconnect(peers[2].id))
       .then(done)
+      .catch((err) => console.error(err.stack))
   })
 
   function parseQueryResult (responses) {

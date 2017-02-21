@@ -10,6 +10,10 @@ class Request {
     this._request = aRequest
     this._deferred = defer()
     this._target = target
+    this._connection
+    this.expectedResponses = 0
+    this.receivedResponses = 0
+    this.responses = []
   }
 
   getDeferred () {
@@ -38,6 +42,11 @@ class Request {
   getRoute () {
     return this._request.route
   }
+
+  isRequestOriginThisNode () {
+    return this._request.route.length === 1
+  }
+
   getId () {
     return this._request.id.toString()
   }
@@ -59,6 +68,37 @@ class Request {
   getType () {
     return this._request.type
   }
+
+  isFile () {
+    return this.getType() === 'file'
+  }
+
+  isQuery () {
+    return this.getType() === 'query'
+  }
+
+  attachConnection (connection) {
+    this._connection = connection
+  }
+
+  getConnection () {
+    return this._connection
+  }
+
+  addResponse (aResponse) {
+    this.responses.push(aResponse)
+  }
+  getResponses () {
+    return this.responses
+  }
+  incrementReceivedResponses () {
+    this.receivedResponses++
+  }
+  isDone () {
+    return this.expectedResponses === this.receivedResponses
+  }
+  setExpectedResponses (anExpectedNrOfResponses) {
+    this.expectedResponses = anExpectedNrOfResponses  }
 }
 
 module.exports = Request

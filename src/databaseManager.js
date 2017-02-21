@@ -8,13 +8,76 @@ const PeerId = require('peer-id')
 const deferred = require('deferred')
 
 module.exports = class DatabaseManager {
-  constructor (fileMetadata) {
+  constructor (fileMetadata, EE) {
     this.metadata = fileMetadata
     this.config = new PullBlobStore('config')
+    this._EE = EE
+    this.myId
+
+    this._EE.on('IncomingQueryRequest', this.onIncomingQueryRequest.bind(this))
+    this._EE.on('IncomingFileRequest', this.onIncomingFileRequest.bind(this))
+    this._EE.on('IncomingFileResponse', this.onIncomingFileResponse.bind(this))
+
   }
-  setupFileStorage (aUserHash) {
-    this.files = new PullBlobStore('files-' + aUserHash)
+  onIncomingQueryRequest (request) {
+    let self = this
+    self.queryMetadata(request.getQuery())
+      .then((queryResult) => {
+        let response = {id: self.myId, result: queryResult}
+        request.setResult([response])
+        self._EE.emit('IncomingResponse', request)
+      })
+      .catch((err) => console.error(err.stack))
   }
+  onIncomingFileRequest (request) {
+    let self = this
+    let fileHash = request.getFile()
+    if (request.isRequestOriginThisNode()) {
+      stream(
+        request.getConnection(),
+        self.getFileWriter(fileHash, function (err) {
+          if (err) throw err
+          self._EE.emit('ReleaseConnection', request.getTarget())
+          request.getDeferred().resolve()
+        })
+      )
+    } else {
+      self.fileExists(request.getFile()).then(function (exists) {
+        if (exists) {
+          self.getMetadata(request.getFile()).then((metadata) => {
+            request.setResult([{accepted: true, metadata: metadata}])
+            stream(
+              self.getFileReader(request.getFile()),
+              request.getConnection()
+            )
+          })
+        } else {
+          request.setResult([{accepted: false, error: 'file NOT found'}])
+        }
+        self._EE.emit('ReturnToSender', request)
+      })
+    }
+  }
+
+  onIncomingFileResponse (request) {
+    if (!request.getResult()[0].accepted) {
+      request.getDeferred().reject(new Error(request.getResult()[0].error))
+    } else {
+      this.storeMetadata(request.getFile(), request.getResult()[0].metadata)
+    }
+  }
+
+  start (aPeerId) {
+    let self = this
+    return self.getConfig(aPeerId)
+      .then((peerId) => {
+        self.files = new PullBlobStore('files-' + peerId.toB58String())
+        self.myId = peerId.toB58String()
+
+        return peerId
+      })
+  }
+
   getConfig (aPeerId) {
     let self = this
     let def = deferred()
@@ -37,6 +100,8 @@ module.exports = class DatabaseManager {
         }
       })
     }
+
+    // return peer-id instance so other modules can use it
     return def.promise
   }
 
@@ -45,29 +110,22 @@ module.exports = class DatabaseManager {
   }
 
   getConfigFromStorage () {
-    let config = this.config
-    return new Promise(function (resolve, reject) {
-      stream(
-        config.read('config'),
-        pullDecode(),
-        stream.drain(function (data) { resolve(JSON.parse(data)) },
-          function (err) {
-            if (err) return reject(err)
-          })
-      )
-    })
+    var def = deferred()
+    stream(
+      this.config.read('config'),
+      pullDecode(),
+      stream.drain((data) => def.resolve(JSON.parse(data)), (err) => { if (err) return def.reject(err) })
+    )
+    return def.promise
   }
 
   storeConfig (jsonConfig) {
-    return new Promise((resolve, reject) => {
-      stream(
-        stream.once(new Buffer(JSON.stringify(jsonConfig))),
-        this.config.write('config', function (err) {
-          if (err) return reject(err)
-          resolve()
-        })
-      )
-    })
+    var def = deferred()
+    stream(
+      stream.once(new Buffer(JSON.stringify(jsonConfig))),
+      this.config.write('config', (err) => { if (err) return def.reject(err); def.resolve() })
+    )
+    return def.promise
   }
 
   fileExists (fileHash) {
@@ -78,18 +136,12 @@ module.exports = class DatabaseManager {
     stream(
         this.getFileReader(fileHash),
         stream.flatten(),
-        stream.collect(function (err, arr) {
-          if (err) return def.reject(err)
-          def.resolve(arr)
-        })
+        stream.collect((err, arr) => { if (err) return def.reject(err); def.resolve(arr) })
       )
     return def.promise
   }
   getFileWriter (fileHash, cb) {
-    return this.files.write(fileHash, function (err) {
-      if (err) return cb(err)
-      cb()
-    })
+    return this.files.write(fileHash, (err) => { if (err) return cb(err); cb() })
   }
   getFileReader (fileHash) {
     return this.files.read(fileHash)
