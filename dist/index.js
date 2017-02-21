@@ -64,7 +64,7 @@ var UniversalPeerToPeer =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 647);
+/******/ 	return __webpack_require__(__webpack_require__.s = 646);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -8855,51 +8855,6 @@ base.Node = __webpack_require__(226);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// This construct deferred with all needed goodies that are being exported
-// when we import 'deferred' by main name.
-// All available promise extensions are also initialized.
-
-
-
-var call   = Function.prototype.call
-  , assign = __webpack_require__(31);
-
-module.exports = assign(__webpack_require__(4), {
-	invokeAsync:   __webpack_require__(274),
-	isPromise:     __webpack_require__(8),
-	dynamicQueue:  __webpack_require__(257),
-	validPromise:  __webpack_require__(277),
-	callAsync:     call.bind(__webpack_require__(81)),
-	delay:         call.bind(__webpack_require__(260)),
-	gate:          call.bind(__webpack_require__(261)),
-	monitor:       __webpack_require__(275),
-	promisify:     call.bind(__webpack_require__(263)),
-	promisifySync: call.bind(__webpack_require__(262)),
-	every:         call.bind(__webpack_require__(258)),
-	find:          call.bind(__webpack_require__(259)),
-	map:           call.bind(__webpack_require__(143)),
-	reduce:        call.bind(__webpack_require__(144)),
-	some:          call.bind(__webpack_require__(145))
-}, __webpack_require__(276));
-
-__webpack_require__(264);
-__webpack_require__(265);
-__webpack_require__(266);
-__webpack_require__(146);
-__webpack_require__(267);
-__webpack_require__(269);
-__webpack_require__(268);
-__webpack_require__(270);
-__webpack_require__(273);
-__webpack_require__(272);
-__webpack_require__(271);
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 
 
 var toInteger = __webpack_require__(85)
@@ -8910,7 +8865,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8925,7 +8880,7 @@ exports.ed25519 = __webpack_require__(377)
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -8970,7 +8925,7 @@ module.exports = isObject;
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 /**
@@ -8997,7 +8952,7 @@ module.exports = identity;
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9106,7 +9061,7 @@ Multihashing.functions = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9161,7 +9116,7 @@ module.exports = function drain (op, done) {
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = function prop (key) {
@@ -9176,7 +9131,7 @@ module.exports = function prop (key) {
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// based on the aes implimentation in triple sec
@@ -9360,7 +9315,7 @@ exports.AES = AES
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var xor = __webpack_require__(45)
@@ -9398,7 +9353,7 @@ exports.encrypt = function (self, chunk) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9507,7 +9462,7 @@ exports.setTyped(TYPED_OK);
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {var Transform = __webpack_require__(13).Transform
@@ -9604,7 +9559,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports) {
 
 
@@ -9616,7 +9571,7 @@ module.exports = function(a, b){
 };
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9650,6 +9605,51 @@ module.exports = function (args, length) {
 	}
 	return args;
 };
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// This construct deferred with all needed goodies that are being exported
+// when we import 'deferred' by main name.
+// All available promise extensions are also initialized.
+
+
+
+var call   = Function.prototype.call
+  , assign = __webpack_require__(31);
+
+module.exports = assign(__webpack_require__(4), {
+	invokeAsync:   __webpack_require__(274),
+	isPromise:     __webpack_require__(8),
+	dynamicQueue:  __webpack_require__(257),
+	validPromise:  __webpack_require__(277),
+	callAsync:     call.bind(__webpack_require__(81)),
+	delay:         call.bind(__webpack_require__(260)),
+	gate:          call.bind(__webpack_require__(261)),
+	monitor:       __webpack_require__(275),
+	promisify:     call.bind(__webpack_require__(263)),
+	promisifySync: call.bind(__webpack_require__(262)),
+	every:         call.bind(__webpack_require__(258)),
+	find:          call.bind(__webpack_require__(259)),
+	map:           call.bind(__webpack_require__(143)),
+	reduce:        call.bind(__webpack_require__(144)),
+	some:          call.bind(__webpack_require__(145))
+}, __webpack_require__(276));
+
+__webpack_require__(264);
+__webpack_require__(265);
+__webpack_require__(266);
+__webpack_require__(146);
+__webpack_require__(267);
+__webpack_require__(269);
+__webpack_require__(268);
+__webpack_require__(270);
+__webpack_require__(273);
+__webpack_require__(272);
+__webpack_require__(271);
 
 
 /***/ }),
@@ -9738,7 +9738,7 @@ var _overRest2 = __webpack_require__(71);
 
 var _overRest3 = _interopRequireDefault(_overRest2);
 
-var _identity = __webpack_require__(50);
+var _identity = __webpack_require__(49);
 
 var _identity2 = _interopRequireDefault(_identity);
 
@@ -11504,7 +11504,7 @@ var toArray          = __webpack_require__(148)
   , callable         = __webpack_require__(5)
   , deferred         = __webpack_require__(4)
   , isPromise        = __webpack_require__(8)
-  , processArguments = __webpack_require__(59)
+  , processArguments = __webpack_require__(58)
 
   , slice = Array.prototype.slice, apply = Function.prototype.apply
 
@@ -12472,7 +12472,7 @@ exports.verifyNonce = (state, n2) => {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 
-const mh = __webpack_require__(51)
+const mh = __webpack_require__(50)
 const lp = __webpack_require__(26)
 const pull = __webpack_require__(10)
 const crypto = __webpack_require__(169)
@@ -17199,7 +17199,7 @@ module.exports = function (stream) {
 "use strict";
 
 
-var drain = __webpack_require__(52)
+var drain = __webpack_require__(51)
 
 module.exports = function reduce (reducer, acc, cb ) {
   if(!cb) cb = acc, acc = null
@@ -19328,8 +19328,8 @@ function encodeTag(tag, primitive, cls, reporter) {
 /* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(54)
-var Transform = __webpack_require__(57)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(53)
+var Transform = __webpack_require__(56)
 var inherits = __webpack_require__(2)
 var GHASH = __webpack_require__(240)
 var xor = __webpack_require__(45)
@@ -19608,8 +19608,8 @@ exports.encrypt = function (self, chunk) {
 /* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(54)
-var Transform = __webpack_require__(57)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(53)
+var Transform = __webpack_require__(56)
 var inherits = __webpack_require__(2)
 
 inherits(StreamCipher, Transform)
@@ -20412,7 +20412,7 @@ util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(637);
+var debugUtil = __webpack_require__(636);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -22512,7 +22512,7 @@ exports.toBn = function toBn (str) {
 const protobuf = __webpack_require__(34)
 
 const pbm = protobuf(__webpack_require__(91))
-const c = __webpack_require__(48)
+const c = __webpack_require__(47)
 
 exports.hmac = c.hmac
 exports.aes = c.aes
@@ -22837,7 +22837,7 @@ var _overRest2 = __webpack_require__(71);
 
 var _overRest3 = _interopRequireDefault(_overRest2);
 
-var _identity = __webpack_require__(50);
+var _identity = __webpack_require__(49);
 
 var _identity2 = _interopRequireDefault(_identity);
 
@@ -22936,7 +22936,7 @@ function polling (opts) {
 var Transport = __webpack_require__(97);
 var parseqs = __webpack_require__(101);
 var parser = __webpack_require__(38);
-var inherit = __webpack_require__(58);
+var inherit = __webpack_require__(57);
 var yeast = __webpack_require__(221);
 var debug = __webpack_require__(68)('engine.io-client:polling');
 
@@ -24588,7 +24588,7 @@ module.exports = isLength;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-const fs = __webpack_require__(642);
+const fs = __webpack_require__(641);
 const format = __webpack_require__(9).format;
 const EventEmitter = __webpack_require__(6).EventEmitter;
 
@@ -25416,7 +25416,7 @@ module.exports = function once (value, onAbort) {
 
 
 function id (e) { return e }
-var prop = __webpack_require__(53)
+var prop = __webpack_require__(52)
 var filter = __webpack_require__(118)
 
 //drop items you have already seen.
@@ -25449,7 +25449,7 @@ module.exports = function abortCb(cb, abort, onAbort) {
 /* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var prop = __webpack_require__(53)
+var prop = __webpack_require__(52)
 
 function id (e) { return e }
 
@@ -25543,7 +25543,7 @@ util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(644);
+var debugUtil = __webpack_require__(643);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -27409,7 +27409,7 @@ util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(645);
+var debugUtil = __webpack_require__(644);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -29138,7 +29138,7 @@ util.inherits = __webpack_require__(2);
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(646);
+var debugUtil = __webpack_require__(645);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -30963,19 +30963,28 @@ module.exports = yeast;
 "use strict";
 
 
-const defer = __webpack_require__(46)
+const defer = __webpack_require__(59)
 
 const MAXIMUM_TIME_TO_LIVE_QUERY = 5
 const MAXIMUM_TIME_TO_LIVE_FTP = 1
 
 class Request {
-  constructor (aRequest, deferred) {
+  constructor (aRequest, target) {
     this._request = aRequest
     this._deferred = defer()
+    this._target = target
+    this._connection
+    this.expectedResponses = 0
+    this.receivedResponses = 0
+    this.responses = []
   }
 
   getDeferred () {
     return this._deferred
+  }
+
+  getTarget () {
+    return this._target
   }
 
   setResult (aResult) {
@@ -30996,6 +31005,11 @@ class Request {
   getRoute () {
     return this._request.route
   }
+
+  isRequestOriginThisNode () {
+    return this._request.route.length === 1
+  }
+
   getId () {
     return this._request.id.toString()
   }
@@ -31017,11 +31031,43 @@ class Request {
   getType () {
     return this._request.type
   }
+
+  isFile () {
+    return this.getType() === 'file'
+  }
+
+  isQuery () {
+    return this.getType() === 'query'
+  }
+
+  attachConnection (connection) {
+    this._connection = connection
+  }
+
+  getConnection () {
+    return this._connection
+  }
+
+  addResponse (aResponse) {
+    this.responses.push(aResponse)
+  }
+  getResponses () {
+    return this.responses
+  }
+  incrementReceivedResponses () {
+    this.receivedResponses++
+  }
+  isDone () {
+    return this.expectedResponses === this.receivedResponses
+  }
+  setExpectedResponses (anExpectedNrOfResponses) {
+    this.expectedResponses = anExpectedNrOfResponses
+  }
 }
 
 module.exports = Request
 
-Request.create = function (type, aRequest) {
+Request.create = function (type, aRequest, target) {
   let request = {}
   request.request = aRequest
   request.type = type
@@ -31036,7 +31082,7 @@ Request.create = function (type, aRequest) {
   request.isResponse = false
   request.result = undefined
 
-  return new Request(request)
+  return new Request(request, target)
 }
 
 Request.createFromString = function (aReqStr) {
@@ -31051,12 +31097,14 @@ Request.createFromString = function (aReqStr) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(Buffer) {
 
-const MultihashingAsync = __webpack_require__(51)
+const MultihashingAsync = __webpack_require__(50)
 const stream = __webpack_require__(10)
 const Logger = __webpack_require__(190)
-const deferred = __webpack_require__(46)
+const deferred = __webpack_require__(59)
 const EE = __webpack_require__(6).EventEmitter
 const Request = __webpack_require__(222)
+const DatabaseManager = __webpack_require__(634)
+const RequestHandler = __webpack_require__(635)
 
 Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR
 
@@ -31067,13 +31115,21 @@ const ConnectionHandler = __webpack_require__(633)
 module.exports = class UniversalPeerToPeer {
 
   constructor (aFileMetadataHandler) {
+    if (!aFileMetadataHandler) {
+      throw new Error('Must specify at least the file metadataHandler')
+    }
+
     this._EE = new EE()
-    this._connectionHandler = new ConnectionHandler(aFileMetadataHandler, this._EE)
-    return this
+    this._requestHandler = new RequestHandler(this._EE)
+    this._connectionHandler = new ConnectionHandler(this._EE)
+    this._db = new DatabaseManager(aFileMetadataHandler, this._EE)
   }
 
   start (aPeerId) {
-    return this._connectionHandler.start(aPeerId)
+    let self = this
+    return self._db.start(aPeerId)
+      .then(self._requestHandler.start.bind(self._requestHandler))
+      .then(self._connectionHandler.start.bind(self._connectionHandler))
   }
 
   stop () {
@@ -31096,37 +31152,34 @@ module.exports = class UniversalPeerToPeer {
         var def = deferred()
         stream(
           stream.once(aData),
-          self._connectionHandler._db.getFileWriter(hash, function () {
+          self._db.getFileWriter(hash, function () {
             def.resolve(hash)
           })
         )
-        return def.promise.then(() => self._connectionHandler._db.storeMetadata(hash, aMetadata)).then(() => hash)
+        return def.promise.then(() => self._db.storeMetadata(hash, aMetadata)).then(() => hash)
       })
   }
 
   view (aDataHashStr) {
-    return this._connectionHandler._db.getFile(aDataHashStr)
+    return this._db.getFile(aDataHashStr)
   }
 
   delete (aDataHashStr) {
-    return this._connectionHandler._db.deleteFile(aDataHashStr)
+    return this._db.deleteFile(aDataHashStr)
   }
 
   copy (aDataHashStr, aUserHashStr) {
-    return this._connectionHandler._requestHandler.buildAndSendFileRequest(aDataHashStr, aUserHashStr)
+    let request = Request.create('file', {file: aDataHashStr}, aUserHashStr)
+    this._EE.emit('IncomingRequest', request)
+    return request.getDeferred().promise
   }
 
   query (aQueryStr) {
     let request = Request.create('query', aQueryStr)
     this._EE.emit('IncomingRequest', request)
-    return request.getDeferred().promise.then((req) => req.getResult())
-  }
-
-  queryLocal (aQueryStr) {
-    return this._connectionHandler._db.queryMetadata(aQueryStr)
+    return request.getDeferred().promise
   }
 }
-// module.exports.Buffer = Buffer
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0).Buffer))
 
@@ -35994,8 +36047,8 @@ module.exports = (function() {
 /* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(54)
-var Transform = __webpack_require__(57)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(53)
+var Transform = __webpack_require__(56)
 var inherits = __webpack_require__(2)
 var modes = __webpack_require__(79)
 var StreamCipher = __webpack_require__(138)
@@ -36092,8 +36145,8 @@ var modelist = {
   CFB8: __webpack_require__(135),
   CFB1: __webpack_require__(134),
   OFB: __webpack_require__(137),
-  CTR: __webpack_require__(55),
-  GCM: __webpack_require__(55)
+  CTR: __webpack_require__(54),
+  GCM: __webpack_require__(54)
 }
 
 function createDecipheriv (suite, password, iv) {
@@ -36138,8 +36191,8 @@ exports.createDecipheriv = createDecipheriv
 /* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(54)
-var Transform = __webpack_require__(57)
+/* WEBPACK VAR INJECTION */(function(Buffer) {var aes = __webpack_require__(53)
+var Transform = __webpack_require__(56)
 var inherits = __webpack_require__(2)
 var modes = __webpack_require__(79)
 var ebtk = __webpack_require__(152)
@@ -36221,8 +36274,8 @@ var modelist = {
   CFB8: __webpack_require__(135),
   CFB1: __webpack_require__(134),
   OFB: __webpack_require__(137),
-  CTR: __webpack_require__(55),
-  GCM: __webpack_require__(55)
+  CTR: __webpack_require__(54),
+  GCM: __webpack_require__(54)
 }
 
 function createCipheriv (suite, password, iv) {
@@ -37464,7 +37517,7 @@ module.exports = {
 "use strict";
 
 
-var utils   = __webpack_require__(56);
+var utils   = __webpack_require__(55);
 var trees   = __webpack_require__(249);
 var adler32 = __webpack_require__(139);
 var crc32   = __webpack_require__(140);
@@ -39660,7 +39713,7 @@ module.exports = function inflate_fast(strm, start) {
 
 
 
-var utils         = __webpack_require__(56);
+var utils         = __webpack_require__(55);
 var adler32       = __webpack_require__(139);
 var crc32         = __webpack_require__(140);
 var inflate_fast  = __webpack_require__(245);
@@ -41205,7 +41258,7 @@ exports.inflateUndermine = inflateUndermine;
 
 
 
-var utils = __webpack_require__(56);
+var utils = __webpack_require__(55);
 
 var MAXBITS = 15;
 var ENOUGH_LENS = 852;
@@ -41557,7 +41610,7 @@ module.exports = {
 
 
 
-var utils = __webpack_require__(56);
+var utils = __webpack_require__(55);
 
 /* Public constants ==========================================================*/
 /* ===========================================================================*/
@@ -43739,7 +43792,7 @@ module.exports = function (timeout) {
 
 
 
-var toPosInt   = __webpack_require__(47)
+var toPosInt   = __webpack_require__(46)
   , callable   = __webpack_require__(5)
   , eeUnify    = __webpack_require__(318)
   , deferred   = __webpack_require__(4)
@@ -43830,7 +43883,7 @@ module.exports = function (cLimit, qLimit) {
 var callable         = __webpack_require__(5)
   , deferred         = __webpack_require__(4)
   , isPromise        = __webpack_require__(8)
-  , processArguments = __webpack_require__(59)
+  , processArguments = __webpack_require__(58)
 
   , apply = Function.prototype.apply
 
@@ -44138,7 +44191,7 @@ var toArray          = __webpack_require__(148)
   , isCallable       = __webpack_require__(30)
   , deferred         = __webpack_require__(4)
   , isPromise        = __webpack_require__(8)
-  , processArguments = __webpack_require__(59)
+  , processArguments = __webpack_require__(58)
 
   , slice = Array.prototype.slice, apply = Function.prototype.apply
   , reject = deferred.reject
@@ -44260,7 +44313,7 @@ deferred.extend('invokeAsync', function (method/*, …args*/) {
 var isCallable       = __webpack_require__(30)
   , deferred         = __webpack_require__(4)
   , isPromise        = __webpack_require__(8)
-  , processArguments = __webpack_require__(59)
+  , processArguments = __webpack_require__(58)
 
   , slice = Array.prototype.slice, apply = Function.prototype.apply
   , reject = deferred.reject
@@ -44505,7 +44558,7 @@ module.exports = function (obj, fn/*, …args*/) {
 var max        = Math.max
   , callable   = __webpack_require__(5)
   , isCallable = __webpack_require__(30)
-  , toPosInt   = __webpack_require__(47)
+  , toPosInt   = __webpack_require__(46)
   , deferred   = __webpack_require__(4);
 
 exports = module.exports = function (timeout, cb) {
@@ -49303,7 +49356,7 @@ module.exports = function () {
 var iteratorSymbol = __webpack_require__(151).iterator
   , isArguments    = __webpack_require__(289)
   , isFunction     = __webpack_require__(84)
-  , toPosInt       = __webpack_require__(47)
+  , toPosInt       = __webpack_require__(46)
   , callable       = __webpack_require__(5)
   , validValue     = __webpack_require__(16)
   , isString       = __webpack_require__(312)
@@ -49522,7 +49575,7 @@ module.exports = function () {
 "use strict";
 
 
-var toPosInt = __webpack_require__(47)
+var toPosInt = __webpack_require__(46)
 
   , test = function (a, b) {}, desc, defineProperty
   , generate, mixin;
@@ -53990,7 +54043,7 @@ var _overRest2 = __webpack_require__(71);
 
 var _overRest3 = _interopRequireDefault(_overRest2);
 
-var _identity = __webpack_require__(50);
+var _identity = __webpack_require__(49);
 
 var _identity2 = _interopRequireDefault(_identity);
 
@@ -54726,7 +54779,7 @@ module.exports = {
 "use strict";
 
 
-const multihashing = __webpack_require__(51)
+const multihashing = __webpack_require__(50)
 const protobuf = __webpack_require__(34)
 
 const crypto = __webpack_require__(61).rsa
@@ -56535,7 +56588,7 @@ exports.jwkToPkix = function (jwk) {
 "use strict";
 
 
-const crypto = __webpack_require__(48)
+const crypto = __webpack_require__(47)
 
 // Generates an ephemeral public key and returns a function that will compute
 // the shared secret key.
@@ -56553,7 +56606,7 @@ module.exports = (curve, callback) => {
 "use strict";
 
 
-const crypto = __webpack_require__(48)
+const crypto = __webpack_require__(47)
 const whilst = __webpack_require__(372)
 const Buffer = __webpack_require__(27).Buffer
 
@@ -56669,11 +56722,11 @@ module.exports = (cipherType, hash, secret, callback) => {
 "use strict";
 
 
-const multihashing = __webpack_require__(51)
+const multihashing = __webpack_require__(50)
 const protobuf = __webpack_require__(34)
 const Buffer = __webpack_require__(27).Buffer
 
-const crypto = __webpack_require__(48).ed25519
+const crypto = __webpack_require__(47).ed25519
 const pbm = protobuf(__webpack_require__(91))
 
 class Ed25519PublicKey {
@@ -56831,10 +56884,10 @@ module.exports = {
 "use strict";
 
 
-const multihashing = __webpack_require__(51)
+const multihashing = __webpack_require__(50)
 const protobuf = __webpack_require__(34)
 
-const crypto = __webpack_require__(48).rsa
+const crypto = __webpack_require__(47).rsa
 const pbm = protobuf(__webpack_require__(91))
 
 class RsaPublicKey {
@@ -59344,7 +59397,7 @@ nacl.setPRNG = function(fn) {
     });
   } else if (true) {
     // Node.js.
-    crypto = __webpack_require__(638);
+    crypto = __webpack_require__(637);
     if (crypto && crypto.randomBytes) {
       nacl.setPRNG(function(x, n) {
         var i, v = crypto.randomBytes(n);
@@ -62758,7 +62811,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
  */
 
 var Polling = __webpack_require__(178);
-var inherit = __webpack_require__(58);
+var inherit = __webpack_require__(57);
 
 /**
  * Module exports.
@@ -62997,7 +63050,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 var XMLHttpRequest = __webpack_require__(98);
 var Polling = __webpack_require__(178);
 var Emitter = __webpack_require__(99);
-var inherit = __webpack_require__(58);
+var inherit = __webpack_require__(57);
 var debug = __webpack_require__(68)('engine.io-client:polling-xhr');
 
 /**
@@ -63428,14 +63481,14 @@ function unloadHandler () {
 var Transport = __webpack_require__(97);
 var parser = __webpack_require__(38);
 var parseqs = __webpack_require__(101);
-var inherit = __webpack_require__(58);
+var inherit = __webpack_require__(57);
 var yeast = __webpack_require__(221);
 var debug = __webpack_require__(68)('engine.io-client:websocket');
 var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(639);
+    NodeWebSocket = __webpack_require__(638);
   } catch (e) { }
 }
 
@@ -65876,7 +65929,7 @@ const multiaddr = __webpack_require__(430)
 const mafmt = __webpack_require__(110)
 const io = __webpack_require__(433)
 const EE = __webpack_require__(6).EventEmitter
-const wrtc = __webpack_require__(640)
+const wrtc = __webpack_require__(639)
 const isNode = __webpack_require__(278)
 const SimplePeer = __webpack_require__(586)
 const PeerId = __webpack_require__(40)
@@ -66180,7 +66233,7 @@ const contains = __webpack_require__(185)
 
 // const IPFS_CODE = 421
 
-let createServer = __webpack_require__(641)
+let createServer = __webpack_require__(640)
 
 if (!createServer) {
   createServer = () => {}
@@ -66513,7 +66566,7 @@ module.exports = Node
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreate = __webpack_require__(445),
-    isObject = __webpack_require__(49),
+    isObject = __webpack_require__(48),
     setBindData = __webpack_require__(104),
     slice = __webpack_require__(70);
 
@@ -66581,7 +66634,7 @@ module.exports = baseBind;
  * Available under MIT license <http://lodash.com/license>
  */
 var isNative = __webpack_require__(39),
-    isObject = __webpack_require__(49),
+    isObject = __webpack_require__(48),
     noop = __webpack_require__(446);
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
@@ -66748,7 +66801,7 @@ module.exports = baseCreateCallback;
  * Available under MIT license <http://lodash.com/license>
  */
 var baseCreate = __webpack_require__(449),
-    isObject = __webpack_require__(49),
+    isObject = __webpack_require__(48),
     setBindData = __webpack_require__(104),
     slice = __webpack_require__(70);
 
@@ -66832,7 +66885,7 @@ module.exports = baseCreateWrapper;
  * Available under MIT license <http://lodash.com/license>
  */
 var isNative = __webpack_require__(39),
-    isObject = __webpack_require__(49),
+    isObject = __webpack_require__(48),
     noop = __webpack_require__(450);
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
@@ -67368,7 +67421,7 @@ module.exports = forOwn;
  * Available under MIT license <http://lodash.com/license>
  */
 var isNative = __webpack_require__(39),
-    isObject = __webpack_require__(49),
+    isObject = __webpack_require__(48),
     shimKeys = __webpack_require__(455);
 
 /* Native method shortcuts for methods with the same name as other `lodash` methods */
@@ -73613,7 +73666,7 @@ var _eachOf = __webpack_require__(507);
 
 var _eachOf2 = _interopRequireDefault(_eachOf);
 
-var _identity = __webpack_require__(50);
+var _identity = __webpack_require__(49);
 
 var _identity2 = _interopRequireDefault(_identity);
 
@@ -75912,7 +75965,7 @@ var _overRest2 = __webpack_require__(71);
 
 var _overRest3 = _interopRequireDefault(_overRest2);
 
-var _identity = __webpack_require__(50);
+var _identity = __webpack_require__(49);
 
 var _identity2 = _interopRequireDefault(_identity);
 
@@ -78535,8 +78588,8 @@ module.exports = function concat (cb) {
 
 
 function id (e) { return e }
-var prop = __webpack_require__(53)
-var drain = __webpack_require__(52)
+var prop = __webpack_require__(52)
+var drain = __webpack_require__(51)
 
 module.exports = function find (test, cb) {
   var ended = false
@@ -78570,7 +78623,7 @@ module.exports = function find (test, cb) {
 
 
 module.exports = {
-  drain: __webpack_require__(52),
+  drain: __webpack_require__(51),
   onEnd: __webpack_require__(553),
   log: __webpack_require__(552),
   find: __webpack_require__(550),
@@ -78588,7 +78641,7 @@ module.exports = {
 "use strict";
 
 
-var drain = __webpack_require__(52)
+var drain = __webpack_require__(51)
 
 module.exports = function log (done) {
   return drain(function (data) {
@@ -78604,7 +78657,7 @@ module.exports = function log (done) {
 "use strict";
 
 
-var drain = __webpack_require__(52)
+var drain = __webpack_require__(51)
 
 module.exports = function onEnd (done) {
   return drain(null, done)
@@ -78716,7 +78769,7 @@ module.exports = function (object) {
 
 
 function id (e) { return e }
-var prop = __webpack_require__(53)
+var prop = __webpack_require__(52)
 
 module.exports = function asyncMap (map) {
   if(!map) return id
@@ -78859,7 +78912,7 @@ module.exports = {
 
 
 function id (e) { return e }
-var prop = __webpack_require__(53)
+var prop = __webpack_require__(52)
 
 module.exports = function map (mapper) {
   if(!mapper) return id
@@ -79465,7 +79518,7 @@ module.exports = function(socket, cb) {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = 'undefined' === typeof WebSocket ? __webpack_require__(643) : WebSocket
+module.exports = 'undefined' === typeof WebSocket ? __webpack_require__(642) : WebSocket
 
 
 /***/ }),
@@ -86787,7 +86840,7 @@ module.exports = 2147483647;
 "use strict";
 
 
-var toPosInt   = __webpack_require__(47)
+var toPosInt   = __webpack_require__(46)
   , maxTimeout = __webpack_require__(619);
 
 module.exports = function (value) {
@@ -88147,55 +88200,141 @@ module.exports = __webpack_amd_options__;
 
 "use strict";
 
-const DatabaseManager = __webpack_require__(634)
-const RequestHandler = __webpack_require__(635)
+const Request = __webpack_require__(222)
 
+const stream = __webpack_require__(10)
+const pullPushable = __webpack_require__(76)
+const pullDecode = __webpack_require__(208)
 const PeerInfo = __webpack_require__(75)
 const Libp2PIpfsBrowser = __webpack_require__(358)
 const Logger = __webpack_require__(190)
-const deferred = __webpack_require__(46)
+const deferred = __webpack_require__(59)
 Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR
 
 const logger = Logger.create('ConnectionHandler', { color: Logger.Colors.Blue })
 
 module.exports = class ConnectionHandler {
-  constructor (aFileMetadataHandler, EE) {
-    if (!aFileMetadataHandler) {
-      throw new Error('Must specify at least the file metadataHandler')
-    }
-
-    this._db = new DatabaseManager(aFileMetadataHandler)
-    this._requestHandler = new RequestHandler(this._db, EE)
+  constructor (EE) {
+    this._EE = EE
+    this.activeQueryConnections = {}
+    this.activeFtpConnections = {}
     this._node
+    this.myId
+
+    this._EE.on('IncomingQueryRequest', this.onIncomingQueryRequest.bind(this))
+    this._EE.on('IncomingFileRequest', this.onIncomingFileRequest.bind(this))
+    this._EE.on('ReturnToSender', this.onReturnToSender.bind(this))
+    this._EE.on('ReleaseConnection', this.onReleaseConnection.bind(this))
   }
+
+  onIncomingQueryRequest (request) {
+    let nrOfExpectedResponses = 0
+    if (request.decrementTimeToLive() > 0) {
+      nrOfExpectedResponses = this.sendRequestToAll(request)
+    }
+    request.setExpectedResponses(nrOfExpectedResponses + 1)
+  }
+
+  onIncomingFileRequest (request) {
+    let self = this
+
+    if (request.isRequestOriginThisNode()) {
+      let userHash = request.getTarget()
+      var deferredFile = request.getDeferred()
+      if (!self.activeFtpConnections[userHash] || !self.activeQueryConnections[userHash]) {
+        deferredFile.reject(new Error('user is not connected'))
+      }
+      if (self.activeFtpConnections[userHash].activeIncoming) {
+        deferredFile.reject(new Error('There is a file currently being transferred'))
+      }
+      request.attachConnection(self.activeFtpConnections[userHash].connection)
+      self.activeFtpConnections[userHash].activeIncoming = true
+      self.sendRequestToUser(userHash, request)
+    } else {
+      request.attachConnection(self.activeFtpConnections[request.getRoute()[0]].connection)
+    }
+  }
+
+  onReturnToSender (request) {
+    var myIndex = request.getRoute().indexOf(this.myId)
+    this.sendRequestToUser(request.getRoute()[myIndex - 1], request)
+  }
+  onReleaseConnection (userHash) {
+    this.activeFtpConnections[userHash].activeIncoming = false
+  }
+
   start (aPeerId) {
     let self = this
-    return self._db.getConfig(aPeerId).then((peerId) => {
-      this._db.setupFileStorage(peerId.toB58String())
-      var peerInfo = new PeerInfo(peerId)
-      self._node = new Libp2PIpfsBrowser(peerInfo)
-      self._node.handle('/UP2P/queryTransfer', (protocol, conn) => self._requestHandler.initQueryStream(conn))
-      self._node.handle('/UP2P/fileTransfer', (protocol, conn) => self._requestHandler.initFtpStream(conn))
-      var ma = '/libp2p-webrtc-star/ip4/127.0.0.1/tcp/15555/ws/ipfs/' + peerId.toB58String()
-      peerInfo.multiaddr.add(ma)
-      logger.debug('YOU CAN REACH ME AT ID = ' + peerId.toB58String())
-    })
-      .then(() => self._requestHandler.start(self._node))
-      .then(() => deferred.promisify(self._node.start.bind(self._node))())
+    let peerInfo = new PeerInfo(aPeerId)
+    self._node = new Libp2PIpfsBrowser(peerInfo)
+    self._node.handle('/UP2P/queryTransfer', (protocol, conn) => self.initQueryStream(conn))
+    self._node.handle('/UP2P/fileTransfer', (protocol, conn) => self.initFtpStream(conn))
+    let ma = '/libp2p-webrtc-star/ip4/127.0.0.1/tcp/15555/ws/ipfs/' + aPeerId.toB58String()
+    peerInfo.multiaddr.add(ma)
+    logger.debug('YOU CAN REACH ME AT ID = ' + aPeerId.toB58String())
+    this.myId = aPeerId.toB58String()
+
+    // return peer-id instance after libp2p node is started so other modules can use it
+    return deferred.promisify(self._node.start.bind(self._node))().then(() => aPeerId)
   }
   connect (ma) {
     let self = this
     return deferred.promisify(self._node.dialByMultiaddr.bind(self._node))(ma, '/UP2P/queryTransfer')
-      .then((conn) => self._requestHandler.initQueryStream(conn))
+      .then((conn) => self.initQueryStream(conn))
       .then(() => deferred.promisify(self._node.dialByMultiaddr.bind(self._node))(ma, '/UP2P/fileTransfer'))
-      .then((conn) => self._requestHandler.initFtpStream(conn))
+      .then((conn) => self.initFtpStream(conn))
   }
 
   disconnect (userHash) {
     var ma = '/libp2p-webrtc-star/ip4/127.0.0.1/tcp/15555/ws/ipfs/' + userHash
     // TODO: REMOVE THE FOLLOWING LINE WHEN HANGUP BUG IS INVESTIGATED/FIXED
-    this._requestHandler.disconnectConnection(userHash)
+    this.disconnectConnection(userHash)
     return deferred.promisify(this._node.hangUpByMultiaddr.bind(this._node))(ma)
+  }
+  initQueryStream (connection) {
+    var self = this
+    var queryPusher = pullPushable()
+    stream(
+      queryPusher, // data pusher
+      connection, // p2p connection
+      pullDecode(), // convert uint8 to utf8
+      stream.drain(self.queryTransferProtocolHandler.bind(self), // function called when data arrives
+        (err) => {
+          if (err) throw err
+          connection.getObservedAddrs(function (err, data) { if (err) throw err; var addr = data[0].toString().split('/'); self.disconnectConnection(addr[addr.length - 1]) })
+        }
+      ) // function called when stream is done
+    )
+    connection.getObservedAddrs(function (err, data) { if (err) throw err; var addr = data[0].toString().split('/'); self.activeQueryConnections[addr[addr.length - 1]] = queryPusher })
+  }
+  initFtpStream (conn) {
+    var self = this
+    conn.getObservedAddrs(function (err, data) { if (err) throw err; var addr = data[0].toString().split('/'); self.activeFtpConnections[addr[addr.length - 1]] = {connection: conn, activeIncoming: false} })
+  }
+
+  queryTransferProtocolHandler (request) {
+    var parsedRequest = Request.createFromString(request)
+    if (parsedRequest.isResponse()) this._EE.emit('IncomingResponse', parsedRequest)
+    else this._EE.emit('IncomingRequest', parsedRequest)
+  }
+  sendRequestToAll (query) {
+    var count = 0
+    for (var userHash in this.activeQueryConnections) {
+      if (query.getRoute().indexOf(userHash) < 0) {
+        this.activeQueryConnections[userHash].push(query.serialize())
+        count++
+      }
+    }
+    return count
+  }
+  sendRequestToUser (userHash, ftpRequest) {
+    this.activeQueryConnections[userHash].push(ftpRequest.serialize())
+  }
+  disconnectConnection (userHash) {
+    if (this.activeQueryConnections[userHash]) this.activeQueryConnections[userHash].end()
+    // TODO: Remove this forceful disconnection code
+    delete this.activeQueryConnections[userHash]
+    delete this._node.swarm.muxedConns[userHash]
   }
 }
 
@@ -88212,16 +88351,79 @@ const pullDecode = __webpack_require__(208)
 const PullBlobStore = __webpack_require__(334)
 const PeerId = __webpack_require__(40)
 
-const deferred = __webpack_require__(46)
+const deferred = __webpack_require__(59)
 
 module.exports = class DatabaseManager {
-  constructor (fileMetadata) {
+  constructor (fileMetadata, EE) {
     this.metadata = fileMetadata
     this.config = new PullBlobStore('config')
+    this._EE = EE
+    this.myId
+
+    this._EE.on('IncomingQueryRequest', this.onIncomingQueryRequest.bind(this))
+    this._EE.on('IncomingFileRequest', this.onIncomingFileRequest.bind(this))
+    this._EE.on('IncomingFileResponse', this.onIncomingFileResponse.bind(this))
   }
-  setupFileStorage (aUserHash) {
-    this.files = new PullBlobStore('files-' + aUserHash)
+
+  onIncomingQueryRequest (request) {
+    let self = this
+    self.queryMetadata(request.getQuery())
+      .then((queryResult) => {
+        let response = {id: self.myId, result: queryResult}
+        request.setResult([response])
+        self._EE.emit('IncomingResponse', request)
+      })
+      .catch((err) => console.error(err.stack))
   }
+  onIncomingFileRequest (request) {
+    let self = this
+    let fileHash = request.getFile()
+    if (request.isRequestOriginThisNode()) {
+      stream(
+        request.getConnection(),
+        self.getFileWriter(fileHash, function (err) {
+          if (err) throw err
+          self._EE.emit('ReleaseConnection', request.getTarget())
+          request.getDeferred().resolve()
+        })
+      )
+    } else {
+      self.fileExists(request.getFile()).then(function (exists) {
+        if (exists) {
+          self.getMetadata(request.getFile()).then((metadata) => {
+            request.setResult([{accepted: true, metadata: metadata}])
+            stream(
+              self.getFileReader(request.getFile()),
+              request.getConnection()
+            )
+          })
+        } else {
+          request.setResult([{accepted: false, error: 'file NOT found'}])
+        }
+        self._EE.emit('ReturnToSender', request)
+      })
+    }
+  }
+
+  onIncomingFileResponse (request) {
+    if (!request.getResult()[0].accepted) {
+      request.getDeferred().reject(new Error(request.getResult()[0].error))
+    } else {
+      this.storeMetadata(request.getFile(), request.getResult()[0].metadata)
+    }
+  }
+
+  start (aPeerId) {
+    let self = this
+    return self.getConfig(aPeerId)
+      .then((peerId) => {
+        self.files = new PullBlobStore('files-' + peerId.toB58String())
+        self.myId = peerId.toB58String()
+
+        return peerId
+      })
+  }
+
   getConfig (aPeerId) {
     let self = this
     let def = deferred()
@@ -88244,6 +88446,8 @@ module.exports = class DatabaseManager {
         }
       })
     }
+
+    // return peer-id instance so other modules can use it
     return def.promise
   }
 
@@ -88252,29 +88456,22 @@ module.exports = class DatabaseManager {
   }
 
   getConfigFromStorage () {
-    let config = this.config
-    return new Promise(function (resolve, reject) {
-      stream(
-        config.read('config'),
-        pullDecode(),
-        stream.drain(function (data) { resolve(JSON.parse(data)) },
-          function (err) {
-            if (err) return reject(err)
-          })
-      )
-    })
+    var def = deferred()
+    stream(
+      this.config.read('config'),
+      pullDecode(),
+      stream.drain((data) => def.resolve(JSON.parse(data)), (err) => { if (err) return def.reject(err) })
+    )
+    return def.promise
   }
 
   storeConfig (jsonConfig) {
-    return new Promise((resolve, reject) => {
-      stream(
-        stream.once(new Buffer(JSON.stringify(jsonConfig))),
-        this.config.write('config', function (err) {
-          if (err) return reject(err)
-          resolve()
-        })
-      )
-    })
+    var def = deferred()
+    stream(
+      stream.once(new Buffer(JSON.stringify(jsonConfig))),
+      this.config.write('config', (err) => { if (err) return def.reject(err); def.resolve() })
+    )
+    return def.promise
   }
 
   fileExists (fileHash) {
@@ -88285,18 +88482,12 @@ module.exports = class DatabaseManager {
     stream(
         this.getFileReader(fileHash),
         stream.flatten(),
-        stream.collect(function (err, arr) {
-          if (err) return def.reject(err)
-          def.resolve(arr)
-        })
+        stream.collect((err, arr) => { if (err) return def.reject(err); def.resolve(arr) })
       )
     return def.promise
   }
   getFileWriter (fileHash, cb) {
-    return this.files.write(fileHash, function (err) {
-      if (err) return cb(err)
-      cb()
-    })
+    return this.files.write(fileHash, (err) => { if (err) return cb(err); cb() })
   }
   getFileReader (fileHash) {
     return this.files.read(fileHash)
@@ -88324,218 +88515,70 @@ module.exports = class DatabaseManager {
 "use strict";
 
 
-const stream = __webpack_require__(10)
-const pullPushable = __webpack_require__(76)
-const pullDecode = __webpack_require__(208)
-const Request = __webpack_require__(222)
-const RequestTracker = __webpack_require__(636)
-
-const deferred = __webpack_require__(46)
 module.exports = class RequestHandler {
-  constructor (aDbManager, EE) {
-    this.dbManager = aDbManager
-    this.activeQueryConnections = {}
-    this.activeFtpConnections = {}
+  constructor (EE) {
     this.activeRequests = []
     this.recentRequestIds = []
     this._EE = EE
     this.myId
-    this.node
-    this._EE.on('IncomingRequest', this.onIncominRequest.bind(this))
+    this._EE.on('IncomingRequest', this.onIncomingRequest.bind(this))
+    this._EE.on('IncomingResponse', this.onIncomingResponse.bind(this))
   }
-  start (aNode) {
-    this.node = aNode
-    this.myId = aNode.peerInfo.id.toB58String()
+  start (aPeerId) {
+    this.myId = aPeerId.toB58String()
+
+    // return peer-id instance so other modules can use it
+    return aPeerId
   }
 
-  onIncominRequest (request) {
+  onIncomingRequest (request) {
     let self = this
-    var requestId = request.getId()
-    if (!request.isResponse()) {
-      let nrOfExpectedResponses = 0
-      request.addToRoute(this.myId)
-      if (this.recentRequestIds.indexOf(request.getId()) > -1) {
-        request.setResult([])
-        return request.getDeferred().resolve(request)
-      } else if (request.decrementTimeToLive() > 0) {
-        nrOfExpectedResponses = this.sendRequestToAll(request)
-        if (request.getRoute()[0] !== self.myId) nrOfExpectedResponses++
-      }
-      this.activeRequests[requestId] = new RequestTracker(request, nrOfExpectedResponses, request.getDeferred())
-      var activeRequest = this.activeRequests[requestId]
-      this.recentRequestIds.push(requestId)
-      setTimeout(() => self.recentRequestIds.shift(), 5 * 1000)
-      if (request.getRoute()[0] !== self.myId && request.getType() === 'query') {
-        self.dbManager.queryMetadata(request.getQuery()).then((queryResult) => {
-          var response = {id: self.myId, result: queryResult}
-          activeRequest.responses.push(response)
-          activeRequest.incrementReceivedResponses()
-          if (activeRequest.isDone()) {
-            request.setResult(activeRequest.responses)
-            request.getDeferred().resolve(request)
-            delete self.activeRequests[requestId]
-          }
-        })
-      } else if (request.getRoute()[0] !== self.myId && request.getType() === 'file') {
-        self.dbManager.fileExists(request.getFile()).then(function (exists) {
-          if (exists) {
-            self.dbManager.getMetadata(request.getFile()).then((metadata) => {
-              request.setResult([{accepted: true, metadata: metadata}])
-              stream(
-                self.dbManager.getFileReader(request.getFile()),
-                self.activeFtpConnections[request.getRoute()[0]].connection
-              )
-              request.getDeferred().resolve(request)
-              delete self.activeRequests[requestId]
-            })
-          } else {
-            request.setResult([{accepted: false, error: 'file NOT found'}])
-            request.getDeferred().resolve(request)
-            delete self.activeRequests[requestId]
-          }
-        })
-      }
-    } else {
-      let activeRequest = this.activeRequests[requestId]
-      activeRequest.incrementReceivedResponses()
-      request.getResult().forEach((elementInArray) => activeRequest.addResponse(elementInArray))
-      if (activeRequest.isDone()) {
-        request.setResult(activeRequest.responses)
-        activeRequest.def.resolve(request)
-        delete self.activeRequests[requestId]
-      }
+    let requestId = request.getId()
+    request.addToRoute(this.myId)
+
+    if (this.recentRequestIds.indexOf(request.getId()) > -1) {
+      request.setResult([])
+      return this._EE.emit('IncomingResponse', request)
+    }
+    this.activeRequests[requestId] = request
+    this.recentRequestIds.push(requestId)
+    setTimeout(() => self.recentRequestIds.shift(), 5 * 1000)
+
+    if (request.isQuery()) {
+      this._EE.emit('IncomingQueryRequest', request)
+    } else if (request.isFile()) {
+      this._EE.emit('IncomingFileRequest', request)
     }
   }
 
-  sendRequestToAll (query) {
-    var count = 0
-    for (var userHash in this.activeQueryConnections) {
-      if (query.getRoute().indexOf(userHash) < 0) {
-        this.activeQueryConnections[userHash].push(query.serialize())
-        count++
-      }
+  onIncomingResponse (response) {
+    let requestId = response.getId()
+    if (response.isFile()) {
+      this.activeRequests.splice(requestId, 1)
+      return this._EE.emit('IncomingFileResponse', response)
     }
-    return count
-  }
-  sendRequestToUser (userHash, ftpRequest) {
-    this.activeQueryConnections[userHash].push(ftpRequest.serialize())
-  }
 
-  initQueryStream (connection) {
-    var self = this
-    var queryPusher = pullPushable()
-    stream(
-      queryPusher, // data pusher
-      connection, // p2p connection
-      pullDecode(), // convert uint8 to utf8
-      stream.drain(self.queryTransferProtocolHandler.bind(self), // function called when data arrives
-        (err) => {
-          if (err) console.error(err)
-          connection.getObservedAddrs(function (err, data) {
-            if (err) console.error(err)
-            var addr = data[0].toString().split('/')
-            self.disconnectConnection(addr[addr.length - 1])
-          })
-        }
-      ) // function called when stream is done
-    )
-    connection.getObservedAddrs(function (err, data) { if (err) throw err; var addr = data[0].toString().split('/'); self.activeQueryConnections[addr[addr.length - 1]] = queryPusher })
-  }
-  initFtpStream (conn) {
-    var self = this
-    conn.getObservedAddrs(function (err, data) { if (err) throw err; var addr = data[0].toString().split('/'); self.activeFtpConnections[addr[addr.length - 1]] = {connection: conn, activeIncoming: false} })
-  }
-  queryTransferProtocolHandler (request) {
-    var self = this
-    var parsedRequest = Request.createFromString(request)
-    if (!parsedRequest.isResponse()) {
-      parsedRequest.getDeferred().promise.then(function (processedRequest) {
-        var myIndex = processedRequest.getRoute().indexOf(self.myId)
-        self.activeQueryConnections[processedRequest.getRoute()[myIndex - 1]].push(processedRequest.serialize())
-      })
-    }
-    this._EE.emit('IncomingRequest', parsedRequest)
-  }
+    let activeRequest = this.activeRequests[requestId]
+    activeRequest.incrementReceivedResponses()
+    response.getResult().forEach((elementInArray) => activeRequest.addResponse(elementInArray))
 
-  disconnectConnection (userHash) {
-    if (this.activeQueryConnections[userHash]) this.activeQueryConnections[userHash].end()
-    // TODO: Remove this forceful disconnection code
-    delete this.activeQueryConnections[userHash]
-    delete this.node.swarm.muxedConns[userHash]
-  }
-
-  buildAndSendFileRequest (fileHash, userHash) {
-    var deferredFile = deferred()
-    var self = this
-    if (!self.activeFtpConnections[userHash] || !self.activeQueryConnections[userHash]) {
-      throw new Error('user is not connected')
-    }
-    if (self.activeFtpConnections[userHash].activeIncoming) {
-      throw new Error('There is a file currently being transferred')
-    }
-    self.activeFtpConnections[userHash].activeIncoming = true
-
-    var ftpRequestToSend = Request.create('file', {file: fileHash})
-    ftpRequestToSend.addToRoute(self.myId)
-    var requestId = ftpRequestToSend.getId()
-    stream(
-      self.activeFtpConnections[userHash].connection,
-      self.dbManager.getFileWriter(fileHash, function (err) {
-        if (err) throw err
-        self.activeFtpConnections[userHash].activeIncoming = false
-        deferredFile.resolve()
-      })
-    )
-
-    var def = deferred()
-    self.activeRequests[requestId] = new RequestTracker(ftpRequestToSend, 1, def)
-    def.promise.then((request) => {
-      if (!request.getResult()[0].accepted) {
-        deferredFile.reject(request.getResult()[0].error)
+    if (activeRequest.isDone()) {
+      if (!activeRequest.isRequestOriginThisNode()) {
+        activeRequest.setResult(activeRequest.responses)
+        this._EE.emit('ReturnToSender', activeRequest)
       } else {
-        self.dbManager.storeMetadata(fileHash, request.getResult()[0].metadata)
+        activeRequest.getDeferred().resolve(activeRequest.responses)
       }
-    },
-      deferredFile.reject
-    )
-    self.sendRequestToUser(userHash, ftpRequestToSend)
-    return deferredFile.promise
+    }
   }
 }
 
 
 /***/ }),
 /* 636 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-class RequestTracker {
-  constructor (anOriginalRequest, expectedResponses, deferredObject) {
-    this.originalRequest = anOriginalRequest
-    this.expectedResponses = expectedResponses
-    this.receivedResponses = 0
-    this.def = deferredObject
-    this.responses = []
-
-    this.resolve = this.def.resolve
-    this.reject = this.def.reject
-  }
-  addResponse (aResponse) {
-    this.responses.push(aResponse)
-  }
-  getResponses () {
-    return this.responses
-  }
-  incrementReceivedResponses () {
-    this.receivedResponses++
-  }
-  isDone () {
-    return this.expectedResponses === this.receivedResponses
-  }
-}
-module.exports = RequestTracker
-
+/* (ignored) */
 
 /***/ }),
 /* 637 */
@@ -88593,12 +88636,6 @@ module.exports = RequestTracker
 
 /***/ }),
 /* 646 */
-/***/ (function(module, exports) {
-
-/* (ignored) */
-
-/***/ }),
-/* 647 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(223);
