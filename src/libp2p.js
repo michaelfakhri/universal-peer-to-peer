@@ -17,9 +17,7 @@ class Node extends libp2p {
         muxer: [
           spdy
         ],
-        crypto: [
-          secio
-        ]
+        crypto: []
       },
       discovery: []
     }
