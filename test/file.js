@@ -37,12 +37,15 @@ describe('data propagation across nodes', () => {
   })
 
   it('file request', (done) => {
+    let date1
     let sent = Buffer(5000000).fill('abcd') // 5 MB of abcd
     let hashOfFile
     peers[0].peer.connect(peers[1].id)
       .then(() => peers[0].peer.publish(sent, '{}'))
       .then((hash) => { hashOfFile = hash })
+      .then(() => { date1 = new Date() })      
       .then(() => peers[1].peer.copy(hashOfFile, peers[0].id))
+      .then(() => console.log("5 MB of data with encryption took: " + (new Date() - date1) + " ms"))
       .then(() => peers[1].peer.view(hashOfFile))
       .then((received) => assert.deepEqual(sent, Buffer(received)))
       .then(() => peers[0].peer.disconnect(peers[1].id))
