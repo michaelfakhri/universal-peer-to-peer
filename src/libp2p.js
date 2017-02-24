@@ -2,7 +2,6 @@
 
 const WebRTCStar = require('libp2p-webrtc-star')
 const spdy = require('libp2p-spdy')
-const secio = require('libp2p-secio')
 const libp2p = require('libp2p')
 
 class Node extends libp2p {
