@@ -45,7 +45,7 @@ describe('data propagation across nodes', () => {
       .then((hash) => { hashOfFile = hash })
       .then(() => { date1 = new Date() })      
       .then(() => peers[1].peer.copy(hashOfFile, peers[0].id))
-      .then(() => console.log("5 MB of data with encryption took: " + (new Date() - date1) + " ms"))
+      .then(() => console.error("5 MB of data with encryption took: " + (new Date() - date1) + " ms"))
       .then(() => peers[1].peer.view(hashOfFile))
       .then((received) => assert.deepEqual(sent, Buffer(received)))
       .then(() => peers[0].peer.disconnect(peers[1].id))
