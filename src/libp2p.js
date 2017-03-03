@@ -21,9 +21,7 @@ class Node extends libp2p {
         webRTCStar
       ],
       connection: {
-        muxer: [
-          spdy
-        ],
+        muxer: [],
         crypto: encryption
       },
       discovery: []
