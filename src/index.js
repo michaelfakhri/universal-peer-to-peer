@@ -5,7 +5,8 @@ const stream = require('pull-stream')
 const Logger = require('logplease')
 const deferred = require('deferred')
 const EE = require('events').EventEmitter
-const Request = require('./Request')
+const FileRequest = require('./FileRequest')
+const QueryRequest = require('./QueryRequest')
 const DatabaseManager = require('./DatabaseManager')
 const RequestHandler = require('./RequestHandler')
 Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR
@@ -75,14 +76,14 @@ module.exports = class DS2 {
   }
 
   copy (aDataHashStr, aUserHashStr) {
-    let request = Request.create('file', {file: aDataHashStr}, aUserHashStr, 2) // 1 for target user and +1 for processing by current node
+    let request = new FileRequest(aDataHashStr, aUserHashStr)
     this._EE.emit('IncomingRequest', request)
     return request.getDeferred().promise
   }
 
   query (aQueryStr, hops) {
     hops = (hops || hops === 0) ? hops : DEFAULT_HOPS_QUERY
-    let request = Request.create('query', aQueryStr, undefined, hops + 1) // +1 for processing by the current node
+    let request = new QueryRequest(aQueryStr, hops)
     this._EE.emit('IncomingRequest', request)
     return request.getDeferred().promise
   }

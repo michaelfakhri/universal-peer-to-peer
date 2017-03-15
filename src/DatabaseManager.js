@@ -23,13 +23,11 @@ module.exports = class DatabaseManager {
     let self = this
     self.queryMetadata(request.getQuery())
       .then((queryResult) => {
-        let response
         if (request.isRequestOriginThisNode()) {
-          response = {id: 'local', hops: (request.getRoute().length - 1), result: queryResult}
+          request.resolve('local', queryResult)
         } else {
-          response = {id: self.myId, hops: (request.getRoute().length - 1), result: queryResult}
+          request.resolve(self.myId, queryResult)
         }
-        request.setResult([response])
         self._EE.emit('IncomingResponse', request)
       })
       .catch((err) => console.error(err.stack))
@@ -50,7 +48,7 @@ module.exports = class DatabaseManager {
       self.fileExists(request.getFile()).then(function (exists) {
         if (exists) {
           self.getMetadata(request.getFile()).then((metadata) => {
-            request.setResult([{accepted: true, metadata: metadata}])
+            request.accept(metadata)
             self._EE.emit('ReturnToSender', request)
             stream(
               self.getFileReader(request.getFile()),
@@ -58,7 +56,7 @@ module.exports = class DatabaseManager {
             )
           })
         } else {
-          request.setResult([{accepted: false, error: 'file NOT found'}])
+          request.reject('File was not found in database')
           self._EE.emit('ReturnToSender', request)
         }
       })
@@ -66,10 +64,11 @@ module.exports = class DatabaseManager {
   }
 
   onIncomingFileResponse (request) {
-    if (!request.getResult()[0].accepted) {
-      request.getDeferred().reject(new Error(request.getResult()[0].error))
+    if (!request.isAccepted()) {
+      request.getDeferred().reject(new Error(request.getError()))
     } else {
-      this.storeMetadata(request.getFile(), request.getResult()[0].metadata)
+      console.e
+      this.storeMetadata(request.getFile(), request.getMetadata())
     }
   }
 

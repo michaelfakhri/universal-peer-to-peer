@@ -1,5 +1,7 @@
 'use strict'
 
+const RequestFactory = require('./RequestFactory')
+
 module.exports = class RequestHandler {
   constructor (EE) {
     this.activeRequests = []
@@ -29,16 +31,16 @@ module.exports = class RequestHandler {
     this.recentRequestIds.push(requestId)
     setTimeout(() => self.recentRequestIds.shift(), 5 * 1000)
 
-    if (request.isQuery()) {
+    if (RequestFactory.isQuery(request)) {
       this._EE.emit('IncomingQueryRequest', request)
-    } else if (request.isFile()) {
+    } else if (RequestFactory.isFile(request)) {
       this._EE.emit('IncomingFileRequest', request)
     }
   }
 
   onIncomingResponse (response) {
     let requestId = response.getId()
-    if (response.isFile()) {
+    if (RequestFactory.isFile(response)) {
       this.activeRequests.splice(requestId, 1)
       return this._EE.emit('IncomingFileResponse', response)
     }
@@ -49,10 +51,10 @@ module.exports = class RequestHandler {
 
     if (activeRequest.isDone()) {
       if (!activeRequest.isRequestOriginThisNode()) {
-        activeRequest.setResult(activeRequest.responses)
+        activeRequest.setResult(activeRequest.getResponses())
         this._EE.emit('ReturnToSender', activeRequest)
       } else {
-        activeRequest.getDeferred().resolve(activeRequest.responses)
+        activeRequest.getDeferred().resolve(activeRequest.getResponses())
       }
     }
   }

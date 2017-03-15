@@ -1,5 +1,5 @@
 'use strict'
-const Request = require('./Request')
+const RequestFactory = require('./RequestFactory')
 
 const stream = require('pull-stream')
 const pullPushable = require('pull-pushable')
@@ -120,7 +120,7 @@ module.exports = class ConnectionHandler {
   }
 
   queryTransferProtocolHandler (request) {
-    var parsedRequest = Request.createFromString(request)
+    var parsedRequest = RequestFactory.createFromString(request)
     if (parsedRequest.isResponse()) this._EE.emit('IncomingResponse', parsedRequest)
     else this._EE.emit('IncomingRequest', parsedRequest)
   }
@@ -128,14 +128,14 @@ module.exports = class ConnectionHandler {
     var count = 0
     for (var userHash in this.activeQueryConnections) {
       if (query.getRoute().indexOf(userHash) < 0) {
-        this.activeQueryConnections[userHash].push(query.serialize())
+        this.activeQueryConnections[userHash].push(JSON.stringify(query.toJSON()))
         count++
       }
     }
     return count
   }
   sendRequestToUser (userHash, ftpRequest) {
-    this.activeQueryConnections[userHash].push(ftpRequest.serialize())
+    this.activeQueryConnections[userHash].push(JSON.stringify(ftpRequest.toJSON()))
   }
   disconnectConnection (userHash) {
     if (this.activeQueryConnections[userHash] || this.activeFtpConnections[userHash]) {

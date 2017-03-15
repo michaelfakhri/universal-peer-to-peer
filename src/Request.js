@@ -3,119 +3,90 @@
 const defer = require('deferred')
 
 class Request {
-  constructor (aRequest, target) {
-    this._request = aRequest
+  constructor (type, hops) {
+    this._type = type
+    this._timeToLive = hops
+    this._route = []
+    this._result = undefined
+    this._id = window.crypto.getRandomValues(new Uint32Array(1))[0]
+
     this._deferred = defer()
-    this._target = target
-    this._connection
-    this.expectedResponses = 0
-    this.receivedResponses = 0
-    this.responses = []
+    this._expectedResponses = 0
+    this._receivedResponses = 0
   }
 
   getDeferred () {
     return this._deferred
   }
 
-  getTarget () {
-    return this._target
+  setResult (aResult) {
+    this._timeToLive = 0
+    this._result = aResult
   }
 
-  setResult (aResult) {
-    this._request.isResponse = true
-    this._request.timeToLive = 0
-    this._request.result = aResult
-  }
   isResponse () {
-    return this._request.isResponse
+    return this._result !== undefined
   }
+
   decrementTimeToLive () {
-    return --this._request.timeToLive
+    return --this._timeToLive
   }
+
   addToRoute (aUserHash) {
-    this._request.route.push(aUserHash)
+    this._route.push(aUserHash)
   }
 
   getRoute () {
-    return this._request.route
+    return this._route
   }
 
   isRequestOriginThisNode () {
-    return this._request.route.length === 1
+    return this._route.length === 1
   }
 
   getId () {
-    return this._request.id.toString()
+    return this._id.toString()
   }
+
   getResult () {
-    return this._request.result
+    return this._result
   }
-  getFile () {
-    return this._request.request.file
-  }
-  getQuery () {
-    return this._request.request
-  }
-  isAccepted () {
-    return this._request.result.accepted
-  }
-  serialize () {
-    return JSON.stringify(this._request)
-  }
+
   getType () {
-    return this._request.type
+    return this._type
   }
 
-  isFile () {
-    return this.getType() === 'file'
-  }
-
-  isQuery () {
-    return this.getType() === 'query'
-  }
-
-  attachConnection (connection) {
-    this._connection = connection
-  }
-
-  getConnection () {
-    return this._connection
-  }
-
-  addResponse (aResponse) {
-    this.responses.push(aResponse)
-  }
-  getResponses () {
-    return this.responses
-  }
   incrementReceivedResponses () {
-    this.receivedResponses++
+    this._receivedResponses++
   }
+
   isDone () {
-    return this.expectedResponses === this.receivedResponses
+    return this._expectedResponses === this._receivedResponses
   }
+
   setExpectedResponses (anExpectedNrOfResponses) {
-    this.expectedResponses = anExpectedNrOfResponses
+    this._expectedResponses = anExpectedNrOfResponses
+  }
+
+  toJSON () {
+    let request = {}
+
+    request.id = this._id
+    request.type = this._type
+    request.route = this._route
+    request.TTL = this._timeToLive
+    request.result = this._result
+
+    return request
+  }
+
+  fromJSON (request) {
+    this._id = request.id
+    this._type = request.type
+    this._route = request.route
+    this._timeToLive = request.TTL
+    this._result = request.result
   }
 }
 
 module.exports = Request
-
-Request.create = function (type, aRequest, target, hops) {
-  let request = {}
-  request.request = aRequest
-  request.type = type
-  request.timeToLive = hops
-
-  request.id = window.crypto.getRandomValues(new Uint32Array(1))[0]
-  request.response = false
-  request.route = []
-  request.isResponse = false
-  request.result = undefined
-
-  return new Request(request, target)
-}
-
-Request.createFromString = function (aReqStr) {
-  return new Request(JSON.parse(aReqStr))
-}
