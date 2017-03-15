@@ -34,7 +34,7 @@
     "aegir": "9.4.0"
   },
   "dependencies": {
-    "deferred": "0.7.5",
+    "deferred": "0.7.6",
     "idb-pull-blob-store": "0.5.1",
     "libp2p": "0.5.4",
     "libp2p-secio": "0.6.7",
