@@ -1,11 +1,11 @@
 'use strict'
-const Request = require('./request')
+const Request = require('./Request')
 
 const stream = require('pull-stream')
 const pullPushable = require('pull-pushable')
 const pullDecode = require('pull-utf8-decoder')
 const PeerInfo = require('peer-info')
-const Libp2p = require('./libp2p')
+const Libp2p = require('./Libp2p')
 const Logger = require('logplease')
 const deferred = require('deferred')
 Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR

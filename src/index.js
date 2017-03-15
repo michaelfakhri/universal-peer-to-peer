@@ -5,14 +5,14 @@ const stream = require('pull-stream')
 const Logger = require('logplease')
 const deferred = require('deferred')
 const EE = require('events').EventEmitter
-const Request = require('./request')
-const DatabaseManager = require('./databaseManager')
-const RequestHandler = require('./requestHandler')
+const Request = require('./Request')
+const DatabaseManager = require('./DatabaseManager')
+const RequestHandler = require('./RequestHandler')
 Logger.setLogLevel(Logger.LogLevels.DEBUG) // change to ERROR
 
 const logger = Logger.create('UP2P', { color: Logger.Colors.Blue })
 
-const ConnectionHandler = require('./connectionHandler')
+const ConnectionHandler = require('./ConnectionHandler')
 
 const DEFAULT_HOPS_QUERY = 5
 
