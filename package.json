@@ -31,7 +31,7 @@
     "chai": "3.5.0",
     "gulp": "3.9.1",
     "multiaddr": "2.2.0",
-    "aegir": "9.4.0"
+    "aegir": "11.0.0"
   },
   "dependencies": {
     "deferred": "0.7.6",
