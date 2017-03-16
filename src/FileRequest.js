@@ -2,9 +2,13 @@
 
 const Request = require('./Request')
 
+const NR_OF_HOPS_FILE = 1
+
+const FILE_TYPE = 'file'
+
 class FileRequest extends Request {
   constructor (file, target) {
-    super('file', 2) // 1 for target user and +1 for processing by this user
+    super(FILE_TYPE, NR_OF_HOPS_FILE + 1) // 1 for target user and +1 for processing by this user
 
     this._file = file
     this._target = target
@@ -60,3 +64,4 @@ class FileRequest extends Request {
 }
 
 module.exports = FileRequest
+module.exports.FILE_TYPE = FILE_TYPE

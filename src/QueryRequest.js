@@ -2,9 +2,11 @@
 
 const Request = require('./Request')
 
+const QUERY_TYPE = 'query'
+
 class QueryRequest extends Request {
   constructor (query, hops) {
-    super('query', hops + 1)  // +1 for resolving of query done by this user
+    super(QUERY_TYPE, hops + 1)  // +1 for resolving of query done by this user
 
     this._query = query
 
@@ -40,3 +42,4 @@ class QueryRequest extends Request {
 }
 
 module.exports = QueryRequest
+module.exports.QUERY_TYPE = QUERY_TYPE
