@@ -1,14 +1,10 @@
+'use strict'
 
 const Request = require('./Request')
 const FileRequest = require('./FileRequest')
 const QueryRequest = require('./QueryRequest')
 
-class RequestFactory {
-  constructor () {
-  }
-}
-
-RequestFactory.createFromString = function (requestStr) {
+module.exports.createFromString = function (requestStr) {
   let requestJSON = JSON.parse(requestStr)
 
   let request = new Request()
@@ -27,12 +23,10 @@ RequestFactory.createFromString = function (requestStr) {
   }
 }
 
-RequestFactory.isFile = function (request) {
+module.exports.isFile = function (request) {
   return request instanceof FileRequest
 }
 
-RequestFactory.isQuery = function (request) {
+module.exports.isQuery = function (request) {
   return request instanceof QueryRequest
 }
-
-module.exports = RequestFactory

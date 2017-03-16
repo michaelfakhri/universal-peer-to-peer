@@ -1,3 +1,4 @@
+'use strict'
 
 const Request = require('./Request')
 
@@ -31,7 +32,7 @@ class FileRequest extends Request {
   }
 
   reject (error) {
-    super.setResult({ accepted: false, error: error})
+    super.setResult({ accepted: false, error: error })
   }
 
   isAccepted () {
@@ -42,7 +43,7 @@ class FileRequest extends Request {
     return super.getResult().metadata
   }
 
-  getError() {
+  getError () {
     return super.getResult().error
   }
 
