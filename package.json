@@ -43,7 +43,7 @@
     "logplease": "1.2.13",
     "multihashing-async": "0.4.3",
     "peer-id": "0.8.2",
-    "peer-info": "0.8.3",
+    "peer-info": "0.8.4",
     "pull-pushable": "2.0.1",
     "pull-stream": "3.5.0",
     "pull-utf8-decoder": "1.0.2"
