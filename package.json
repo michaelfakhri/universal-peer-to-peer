@@ -30,7 +30,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "gulp": "3.9.1",
-    "multiaddr": "2.2.0",
+    "multiaddr": "2.2.2",
     "aegir": "9.4.0"
   },
   "dependencies": {
