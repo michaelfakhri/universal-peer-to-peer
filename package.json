@@ -31,7 +31,7 @@
     "chai": "3.5.0",
     "gulp": "3.9.1",
     "multiaddr": "2.2.2",
-    "aegir": "9.4.0"
+    "aegir": "11.0.0"
   },
   "dependencies": {
     "deferred": "0.7.6",
@@ -41,9 +41,9 @@
     "libp2p-spdy": "0.10.4",
     "libp2p-webrtc-star": "0.8.8",
     "logplease": "1.2.13",
-    "multihashing-async": "0.4.3",
-    "peer-id": "0.8.2",
-    "peer-info": "0.8.3",
+    "multihashing-async": "0.4.4",
+    "peer-id": "0.8.4",
+    "peer-info": "0.8.4",
     "pull-pushable": "2.0.1",
     "pull-stream": "3.5.0",
     "pull-utf8-decoder": "1.0.2"
