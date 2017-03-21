@@ -39,7 +39,7 @@
     "libp2p": "0.5.4",
     "libp2p-secio": "0.6.7",
     "libp2p-spdy": "0.10.4",
-    "libp2p-webrtc-star": "0.8.8",
+    "libp2p-webrtc-star": "0.8.10",
     "logplease": "1.2.13",
     "multihashing-async": "0.4.4",
     "peer-id": "0.8.4",
