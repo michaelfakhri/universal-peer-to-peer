@@ -38,7 +38,7 @@
     "idb-pull-blob-store": "0.5.1",
     "libp2p": "0.5.4",
     "libp2p-secio": "0.6.7",
-    "libp2p-spdy": "0.10.4",
+    "libp2p-spdy": "0.10.6",
     "libp2p-webrtc-star": "0.8.8",
     "logplease": "1.2.13",
     "multihashing-async": "0.4.4",
