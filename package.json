@@ -14,7 +14,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "gulp test:browser --dom"
+    "test": "gulp test:browser --dom",
+    "lint": "gulp lint"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,7 @@
   },
   "keywords": [],
   "author": "Michael Fakhry",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/michaelfakhri/ds2issues"
   },
@@ -31,13 +32,13 @@
     "chai": "3.5.0",
     "gulp": "3.9.1",
     "multiaddr": "2.2.2",
-    "aegir": "11.0.0"
+    "aegir": "11.0.1"
   },
   "dependencies": {
     "deferred": "0.7.6",
     "idb-pull-blob-store": "0.5.1",
-    "libp2p": "0.5.4",
-    "libp2p-secio": "0.6.7",
+    "libp2p": "0.5.5",
+    "libp2p-secio": "0.6.8",
     "libp2p-spdy": "0.10.6",
     "libp2p-webrtc-star": "0.8.8",
     "logplease": "1.2.13",
