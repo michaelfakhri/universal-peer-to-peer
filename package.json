@@ -43,7 +43,7 @@
     "libp2p-webrtc-star": "0.8.10",
     "logplease": "1.2.13",
     "multihashing-async": "0.4.5",
-    "peer-id": "0.8.4",
+    "peer-id": "0.8.5",
     "peer-info": "0.8.4",
     "pull-pushable": "2.0.1",
     "pull-stream": "3.5.0",
