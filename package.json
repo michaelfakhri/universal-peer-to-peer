@@ -46,7 +46,7 @@
     "peer-id": "0.8.4",
     "peer-info": "0.8.4",
     "pull-pushable": "2.0.1",
-    "pull-stream": "3.5.0",
+    "pull-stream": "3.5.1",
     "pull-utf8-decoder": "1.0.2"
   },
   "contributors": [
