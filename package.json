@@ -30,7 +30,7 @@
   "homepage": "https://github.com/michaelfakhri/ds2#readme",
   "devDependencies": {
     "chai": "3.5.0",
-    "gulp": "3.9.1",
+    "gulp": "4.0.0",
     "multiaddr": "2.2.2",
     "aegir": "11.0.1"
   },
